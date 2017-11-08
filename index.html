@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <style media="screen">
+      canvas {
+      border : 5px solid green;
+    }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const canvas = document.querySelector('canvas')
+
+        const draw_reset = () => {
+        const ctx = canvas.getContext("2d")
+        ctx.font = "50px Arial";
+        ctx.fillText("N",330,50);
+        ctx.beginPath();
+        ctx.arc(350, 350, 290, 0, Math.PI * 2, true)
+        ctx.moveTo(110, 110);
+        ctx.stroke();
+        }
+
+        const icon = canvas.getContext("2d")
+    
+        const mover = {
+          run_x: 100,
+          run_y: 350,
+          icon,
+          move: function() {
+            this.icon.fillRect(this.run_x, this.run_y, 10, 10)
+            this.icon.fillStyle = "blue";
+
+          },
+          // remove_path: function() {
+          //   this.icon.fillRect(this.run_x, this.run_y, 5, 5)
+          //   this.icon.fillStyle = "red";
+          // }
+        }
+
+        function step() {
+          icon.clearRect(0,0, 700, 700)
+          draw_reset()
+          // mover.remove_path()
+          mover.move()
+          requestAnimationFrame(step)
+        }
+
+        document.addEventListener("keydown", (e) => {
+          switch (e.key) {
+            case "ArrowUp":
+              mover.run_y -= 8
+              break;
+            case "ArrowDown":
+              mover.run_y += 8
+            break;
+            case "ArrowRight":
+              mover.run_x += 8
+            break;
+            case "ArrowLeft":
+              mover.run_x -= 8
+              break;
+            default:
+            console.log("you pushed a different key");
+          }
+        })
+        step()
+
+      })
+
+
+    </script>
+
+    <canvas id="canvas" width="700" height="700"></canvas>
+  </body>
+</html>
