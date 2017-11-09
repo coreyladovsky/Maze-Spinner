@@ -7,7 +7,7 @@
   <body>
     <style media="screen">
       canvas {
-      border : 5px solid green;
+      /*border : 5px solid green;*/
     }
     </style>
     <script>
@@ -25,7 +25,7 @@
           ctx.stroke();
           ctx.fill();
 
-          
+
           const maze = [
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
             [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -39,9 +39,9 @@
             [0,0,0,1,0,0,0,0,1,0,1,0,1,0,1,0,1,1,0,1,1,1,1,1,0,0,0,0],
             [0,0,0,1,0,1,1,1,1,0,0,0,1,0,0,0,1,0,0,1,0,0,0,1,0,0,0,0],
             [0,0,0,1,0,0,0,0,1,1,1,1,1,1,1,1,1,0,1,0,0,1,0,1,0,0,0,0],
-            [0,0,0,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0],
+            [0,0,1,1,1,1,1,0,1,0,0,0,0,0,0,0,0,0,1,0,1,1,0,1,0,0,0,0],
             [0,0,0,0,0,0,1,0,1,0,1,1,1,1,1,1,1,1,1,0,0,1,0,1,0,0,0,0],
-            [0,0,0,1,1,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0],
+            [0,0,1,1,1,0,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,0],
             [0,0,0,0,1,0,1,0,1,0,0,0,1,1,0,1,0,1,0,1,0,1,0,1,0,0,0,0],
             [0,0,0,0,1,0,0,0,1,1,1,1,1,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0],
             [0,0,0,0,1,1,1,1,1,0,0,0,0,0,1,1,0,1,0,1,0,1,0,1,0,0,0,0],
@@ -60,9 +60,14 @@
           ]
           for(let y = 0; y < maze.length; y++) {
             for(let x = 0; x < maze[y].length; x++) {
+              let tile = maze[y][x]
               if(maze[y][x] === 1) {
                 ctx.fillStyle = "black";
                 ctx.fillRect(x * 25, y * 25, 25, 25)
+
+                if(trueCollisionCheck(mover.run_x, 7, mover.run_y, y * 25, x * 25, 25)) {
+                  backwardsStep()
+                }
               }
             }
           }
@@ -74,9 +79,11 @@
 
         const mover = {
           run_x: 70,
-          run_y: 333,
+          run_y: 337,
+          last_x: 70,
+          last_y: 337,
           ctx,
-          move: function() {
+          start: function() {
             this.ctx.fillStyle = "blue";
             ctx.beginPath();
             ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
@@ -86,29 +93,65 @@
             // this.ctx.fillRect(this.run_x, this.run_y, 10, 10)
 
           },
+          revert: function() {
+              this.run_x = this.last_x;
+              this.run_y = this.last_y;
+              this.ctx.fillStyle = "blue";
+              ctx.beginPath();
+              ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
+              ctx.moveTo(110, 110);
+              ctx.stroke();
+              ctx.fill()
+            },
 
+        }
+
+        function updateLastX(num) {
+          mover.last_x += num
+        }
+
+        function updateLastY(num) {
+          mover.last_y += num
         }
 
         function step() {
           ctx.clearRect(0,0, 700, 700)
           draw_reset()
-          // mover.remove_path()
-          mover.move()
+          mover.start()
           requestAnimationFrame(step)
+        }
+
+        function backwardsStep() {
+          mover.revert()
+          ctx.clearRect(0,0, 700, 700)
+          draw_reset()
+          requestAnimationFrame(backwardsStep)
         }
 
         document.addEventListener("keydown", (e) => {
           switch (e.key) {
             case "ArrowUp":
+            if(mover.last_y !== mover.run_y) {
+              mover.last_y = mover.run_y
+            }
               mover.run_y -= 4
               break;
             case "ArrowDown":
+            if(mover.last_y !== mover.run_y) {
+              mover.last_y = mover.run_y
+            }
               mover.run_y += 4
             break;
             case "ArrowRight":
+            if(mover.last_x !== mover.run_x) {
+              mover.last_x = mover.run_x
+            }
               mover.run_x += 4
             break;
             case "ArrowLeft":
+            if(mover.last_x !== mover.run_x) {
+              mover.last_x = mover.run_x
+            }
               mover.run_x -= 4
               break;
             default:
@@ -123,5 +166,6 @@
     </script>
 
     <canvas id="canvas" width="700" height="700"></canvas>
+    <script type="text/javascript" src="collision.js"></script>
   </body>
 </html>
