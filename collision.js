@@ -21,7 +21,8 @@ const horizontalCollisionCheck = (mover_x, mover_radius, tile_x, tile_width) => 
 };
 
 const trueCollisionCheck = (mover_x, mover_radius, mover_y, tile_y, tile_x, tile_width) => {
-  if(horizontalCollisionCheck(mover_x, mover_radius, tile_x, tile_width) && verticalCollisionCheck(mover_y, mover_radius, tile_y, tile_width)) {
+  if(horizontalCollisionCheck(mover_x, mover_radius, tile_x, tile_width) &&
+    verticalCollisionCheck(mover_y, mover_radius, tile_y, tile_width)) {
     return true;
   }
 };
