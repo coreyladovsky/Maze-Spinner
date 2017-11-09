@@ -132,30 +132,29 @@
             case "ArrowUp":
             if(mover.last_y !== mover.run_y) {
               mover.last_y = mover.run_y
-              mover.last_x = mover.run_x
             }
-
+              mover.last_x = mover.run_x
               mover.run_y -= 4
               break;
             case "ArrowDown":
             if(mover.last_y !== mover.run_y) {
               mover.last_y = mover.run_y
-              mover.last_x = mover.run_x
             }
+              mover.last_x = mover.run_x
               mover.run_y += 4
             break;
             case "ArrowRight":
             if(mover.last_x !== mover.run_x) {
               mover.last_x = mover.run_x
-              mover.last_y = mover.run_y
             }
+              mover.last_y = mover.run_y
               mover.run_x += 4
             break;
             case "ArrowLeft":
             if(mover.last_x !== mover.run_x) {
               mover.last_x = mover.run_x
-              mover.last_y = mover.run_y
             }
+              mover.last_y = mover.run_y
               mover.run_x -= 4
               break;
             default:

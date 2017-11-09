@@ -13,11 +13,9 @@ const verticalCollisionCheck = (mover_y, mover_radius, tile_y, tile_height) => {
 
 const horizontalCollisionCheck = (mover_x, mover_radius, tile_x, tile_width) => {
   if(mover_x + mover_radius > tile_x && mover_x + mover_radius < tile_x + tile_width) {
-    // console.log("horizontal collision");
     return true;
   }
   if(mover_x - mover_radius > tile_x && mover_x - mover_radius < tile_x + tile_width) {
-    // console.log("horizontal collison");
     return true;
   }
 };
