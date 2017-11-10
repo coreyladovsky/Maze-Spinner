@@ -26,16 +26,3 @@ const trueCollisionCheck = (mover_x, mover_radius, mover_y, tile_y, tile_x, tile
     return true;
   }
 };
-
-
-// let spins;
-// let degrees = 0;
-// function spinner(el, speed) {
-//   let item = document.getElementById(el);
-//   item.style.transform = 'rotate(1deg)';
-//   spins = setTimeout(spinner(el, 50), speed);
-//   degrees++;
-//   if(degrees > 359) {
-//     degrees = 1;
-//   }
-// }

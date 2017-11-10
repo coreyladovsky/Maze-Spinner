@@ -23,7 +23,9 @@
   <body>
     <style media="screen">
       canvas {
-      /*border : 5px solid green;*/
+      border : 5px solid green;
+      border-radius: 50%;
+      background-color: black;
     }
     body {
       overflow: hidden;
@@ -46,7 +48,7 @@
           ctx.beginPath();
           ctx.arc(350, 350, 320, 0, Math.PI * 2, true)
           ctx.moveTo(110, 110);
-          ctx.fillStyle = "black"
+          ctx.fillStyle = "yellow"
           ctx.stroke();
           ctx.fill();
 
@@ -91,7 +93,7 @@
                 ctx.fillRect(x * 25, y * 25, 25, 25)
 
                 if(trueCollisionCheck(mover.run_x, 7, mover.run_y, y * 25, x * 25, 25)) {
-                  mover.revert();
+                  mover.revertAll();
                 }
               } else if(maze[y][x] === 2) {
                 ctx.fillStyle = "green";
@@ -116,6 +118,8 @@
           run_y: 337,
           last_x: 82,
           last_y: 337,
+          velocity_y: 0,
+          velocity_x: 0,
           ctx,
           start: function() {
 
@@ -126,11 +130,29 @@
             ctx.stroke();
             ctx.fill()
             this.updateMover()
-            // this.ctx.fillRect(this.run_x, this.run_y, 10, 10)
 
           },
-          revert: function() {
+          revertAll: function() {
+              this.run_y = this.last_y
               this.run_x = this.last_x;
+              this.ctx.fillStyle = "blue";
+              ctx.beginPath();
+              ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
+              ctx.moveTo(110, 110);
+              ctx.stroke();
+              ctx.fill()
+            },
+          revertX: function() {
+              this.run_x = this.last_x;
+              this.ctx.fillStyle = "blue";
+              ctx.beginPath();
+              ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
+              ctx.moveTo(110, 110);
+              ctx.stroke();
+              ctx.fill()
+            },
+
+          revertY: function() {
               this.run_y = this.last_y;
               this.ctx.fillStyle = "blue";
               ctx.beginPath();
@@ -149,28 +171,21 @@
 
 
             updateMover: function() {
+              this.last_y = this.run_y
+              this.last_x = this.run_x
               if(this.movement.up) {
-                  this.last_y = this.run_y
-                  this.last_x = this.run_x
-                  this.run_y -= 1
+                this.run_y -= 3
               }
               if(this.movement.down) {
-                  this.last_y = this.run_y
-                  this.last_x = this.run_x
-                  this.run_y += 1
+                this.run_y += 3
               }
-
               if(this.movement.right) {
-                  mover.last_x = mover.run_x
-                  mover.last_y = mover.run_y
-                  mover.run_x += 1
+                this.run_x += 3
               }
               if(this.movement.left) {
-                 mover.last_x = mover.run_x
-                  mover.last_y = mover.run_y
-                  mover.run_x -= 1
+                this.run_x -= 3
               }
-          }
+            }
         }
 
         function step() {
@@ -183,18 +198,22 @@
         document.addEventListener("keydown", (e) => {
           switch (e.key) {
             case "ArrowUp":
+            case "w":
               mover.movement.down = false
               mover.movement.up = true
               break;
             case "ArrowDown":
+            case "s":
               mover.movement.up = false
               mover.movement.down = true
               break;
             case "ArrowRight":
+            case "d":
               mover.movement.left = false
               mover.movement.right = true
               break;
             case "ArrowLeft":
+            case "a":
               mover.movement.right = false
               mover.movement.left = true
               break;
@@ -209,15 +228,19 @@
         document.addEventListener("keyup", (e) => {
           switch (e.key) {
             case "ArrowUp":
+            case "w":
             mover.movement.up = false
               break;
             case "ArrowDown":
+            case "s":
             mover.movement.down = false
             break;
             case "ArrowRight":
+            case "d":
             mover.movement.right = false
             break;
             case "ArrowLeft":
+            case "a":
             mover.movement.left = false
               break;
             default:

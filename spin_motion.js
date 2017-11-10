@@ -19,8 +19,7 @@ let array = [-2, -1, 1, 2];
 let angle;
 
 function rotate(angle){
-
-  degrees += angle
+  degrees += angle;
   setTimeout(() => {
     counter++ ;
     let item = document.getElementById("canvas");
@@ -29,25 +28,21 @@ function rotate(angle){
       setTimeout(() => {
         rotate(angle);
       }, 10);
-
-
     }
   }, 10);
 }
 
 function randTime() {
-  return Math.round(Math.random() * (10000 - 5000) + (5000));
+  return Math.round(Math.random() * (7000 - 4000) + (4000));
 }
-
 
 function keepSpinning() {
   setTimeout(()=> {
-    counter = 0
-    angle = array[Math.round(Math.random() * 3)]
+    counter = 0;
+    angle = array[Math.round(Math.random() * 3)];
     rotate(angle);
     keepSpinning();
   }, randTime());
-
 }
 
 // keepSpinning();
