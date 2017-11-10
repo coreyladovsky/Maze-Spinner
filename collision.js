@@ -27,7 +27,15 @@ const trueCollisionCheck = (mover_x, mover_radius, mover_y, tile_y, tile_x, tile
   }
 };
 
-//
-// number  greater then tile left and number is less than tile right
-//
-// number is greater than tile top, and number is less than tile bottom
+
+// let spins;
+// let degrees = 0;
+// function spinner(el, speed) {
+//   let item = document.getElementById(el);
+//   item.style.transform = 'rotate(1deg)';
+//   spins = setTimeout(spinner(el, 50), speed);
+//   degrees++;
+//   if(degrees > 359) {
+//     degrees = 1;
+//   }
+// }
