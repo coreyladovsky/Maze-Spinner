@@ -45,4 +45,4 @@ function keepSpinning() {
   }, randTime());
 }
 
-// keepSpinning();
+keepSpinning();
