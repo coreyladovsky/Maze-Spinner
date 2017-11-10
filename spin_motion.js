@@ -45,4 +45,8 @@ function keepSpinning() {
   }, randTime());
 }
 
-keepSpinning();
+// keepSpinning();
+
+function gameOver() {
+  
+}
