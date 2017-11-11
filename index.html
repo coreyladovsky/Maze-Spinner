@@ -13,15 +13,16 @@
 
     <div class="canvas-container">
       <div id="opening-screen">
-        <h1 class="game-name-opener">Maze Spinner by Corey Ladovsky</h1>
+
+        <h1 class="game-name-opener"><img id="spinning-star" src="./images/star.png" alt="">Maze Spinner <img id="spinning-star2" src="./images/star.png" alt=""><br> <br>By Corey Ladovsky</h1>
         <div class="instructions">
 
-          <div>Use the Arrow Keys to navigate  the maze (a s d w, also work too)</div>
+          <div>Use the Arrow Keys to navigate  the maze  <br> (a s d w, also work too)</div>
 
-          <div>The Maze will rotate during the game  so you'll have to think  quickly on your feet!</div>
+          <div>The Maze will rotate during the game <br> so you'll have to think  quickly on your feet!</div>
 
-          <div>Just remeber, North on the map will always be linked to your  "up" key!</div>
-          <p>Good Luck!</p>
+          <div>Just remeber, North on the map will always be linked to your  "up" key!   Good Luck!</div>
+
 
         </div>
         <p class="spacebar">Press the SpaceBar to start the Game!</p>
@@ -60,7 +61,28 @@
     //   }
     // }
 
+
+
     $("#gameOverScreen").hide()
+
+    let looper;
+    let deg = 0;
+  function loops(el,speed){
+    var item = document.getElementById(el);
+      item.style.transform = `rotate(${deg}deg)`;
+    looper = setTimeout(() => {
+      loops(el, 50)
+    }, 5);
+    deg++;
+    if(deg > 359){
+      deg = 1;
+    }
+    // document.getElementById("status").innerHTML = "rotate("+degrees+"deg)";
+  }
+
+
+  loops("spinning-star", 50);
+  loops("spinning-star2", 50);
 
       document.addEventListener("keypress", (e)=>{
         if(e.keyCode === 32) {
