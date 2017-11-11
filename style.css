@@ -84,8 +84,10 @@ overflow: hidden;
   flex-direction: column;
   align-content: center;
   color: white;
-  font-family: "Press Start 2P"
-
+  font-family: "Press Start 2P";
+  font-size: 30px;
+  text-align: center;
+  opacity: .95; 
 
 }
 

@@ -96,6 +96,17 @@
     function gameOver() {
       $("#gameOverScreen").show();
       // document.removeEventListener("keydown");
+      
+      clearTimeout(stopSpin);
+
+      document.addEventListener("keypress", (e)=>{
+        if(e.keyCode === 32) {
+          $("#gameOverScreen").hide();
+          // document.removeEventListener("keypress")
+          // keepSpinning();
+        }
+      });
+
     }
 
     const mover = {

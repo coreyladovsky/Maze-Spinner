@@ -17,6 +17,7 @@ var degrees = 0 ;
 let counter = 0;
 let array = [-2, -1, 1, 2];
 let angle;
+let stopSpin;
 
 function rotate(angle){
   degrees += angle;
@@ -36,8 +37,8 @@ function randTime() {
   return Math.round(Math.random() * (7000 - 4000) + (4000));
 }
 
-function keepSpinning() {
-  setTimeout(()=> {
+ function keepSpinning() {
+   stopSpin = setTimeout(()=> {
     counter = 0;
     angle = array[Math.round(Math.random() * 3)];
     rotate(angle);
@@ -48,5 +49,5 @@ function keepSpinning() {
 // keepSpinning();
 
 function gameOver() {
-  
+
 }

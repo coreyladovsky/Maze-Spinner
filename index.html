@@ -31,10 +31,13 @@
         </div>
       </div>
       <div id="gameOverScreen">
+        <div class="game-over-text-all">
+
         <h1 class="game-over-text">GAME OVER!</h1>
         <div class="press-button">
           Press the SpaceBar to play again!
         </div>
+      </div>
       </div>
       <canvas id="canvas" width="700" height="700"></canvas>
 
@@ -46,6 +49,7 @@
 
     </div>
 
+    <script type="text/javascript" src="spin_motion.js"></script>
     <script type="text/javascript">
 
     // function removeSpaceBar(event) {
@@ -62,13 +66,12 @@
         if(e.keyCode === 32) {
           $("#opening-screen").hide()
           // document.removeEventListener("keypress")
-          // keepSpinning();
+          keepSpinning();
         }
       })
 
     </script>
     <script type="text/javascript" src="collision.js"></script>
     <script type="text/javascript" src="maze_spinner.js"> </script>
-    <script type="text/javascript" src="spin_motion.js"></script>
   </body>
 </html>
