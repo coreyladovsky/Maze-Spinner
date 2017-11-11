@@ -17,7 +17,7 @@
         <div class="instructions">
 
           <div>Use the Arrow Keys to navigate  the maze (a s d w, also work too)</div>
-        
+
           <div>The Maze will rotate during the game  so you'll have to think  quickly on your feet!</div>
 
           <div>Just remeber, North on the map will always be linked to your  "up" key!</div>
@@ -28,8 +28,12 @@
 
         <div class="corey-contact">
          <a class="linked-in-link" href="https://www.linkedin.com/in/corey-ladovsky/">Linked In</a>
-
-
+        </div>
+      </div>
+      <div id="gameOverScreen">
+        <h1 class="game-over-text">GAME OVER!</h1>
+        <div class="press-button">
+          Press the SpaceBar to play again!
         </div>
       </div>
       <canvas id="canvas" width="700" height="700"></canvas>
@@ -42,18 +46,29 @@
 
     </div>
 
-    <script type="text/javascript" src="collision.js"></script>
-    <script type="text/javascript" src="maze_spinner.js"> </script>
-    <script type="text/javascript" src="spin_motion.js"></script>
     <script type="text/javascript">
+
+    // function removeSpaceBar(event) {
+    //   if(e.keyCode === 32) {
+    //     $("#opening-screen").hide()
+    //     document.removeEventListener("keypress", removeSpaceBar(event))
+    //     keepSpinning();
+    //   }
+    // }
+
+    $("#gameOverScreen").hide()
+
       document.addEventListener("keypress", (e)=>{
         if(e.keyCode === 32) {
           $("#opening-screen").hide()
-
-          keepSpinning();
+          // document.removeEventListener("keypress")
+          // keepSpinning();
         }
       })
 
     </script>
+    <script type="text/javascript" src="collision.js"></script>
+    <script type="text/javascript" src="maze_spinner.js"> </script>
+    <script type="text/javascript" src="spin_motion.js"></script>
   </body>
 </html>
