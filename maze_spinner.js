@@ -93,26 +93,40 @@
       }
     };
 
+    function spaceBar(e) {
+      if(e.keyCode === 32) {
+        $("#gameOverScreen").hide()
+        mover.run_x = 88;
+        mover.run_y = 337;
+        mover.last_x = 88;
+        mover.last_y = 337;
+        // keepSpinning();
+      }
+      // document.removeEventListener("keypress", (e) => SpaceBar(e))
+    }
+
     function gameOver() {
       $("#gameOverScreen").show();
       // document.removeEventListener("keydown");
-
       clearTimeout(stopSpin);
+      document.addEventListener("keypress", (e) => spaceBar(e), {once: true});
 
-      document.addEventListener("keypress", (e)=>{
-        if(e.keyCode === 32) {
-          $("#gameOverScreen").hide();
-          // document.removeEventListener("keypress")
-          // keepSpinning();
-        }
-      });
+
+
+      // document.addEventListener("keypress", (e)=>{
+      //   if(e.keyCode === 32) {
+      //     $("#gameOverScreen").hide();
+      //     // document.removeEventListener("keypress")
+      //     // keepSpinning();
+      //   }
+      // });
 
     }
 
     const mover = {
-      run_x: 82,
+      run_x: 555,
       run_y: 337,
-      last_x: 82,
+      last_x: 555,
       last_y: 337,
       right_side: this.run_x + 7,
       left_side: this.run_x - 7,
