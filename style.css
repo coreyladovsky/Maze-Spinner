@@ -23,17 +23,48 @@ overflow: hidden;
    display: flex;
    justify-content: center;
    flex-direction: column;
+   align-content: center;
 
  }
 
 .game-name-opener {
   color: white;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: bold;
-  font-family: sans-serif;
+  font-family: 'Press Start 2P';
   margin-top: 40px;
+  align-self: center;
 }
 
 .instructions {
   color: white;
+  align-self: center;
+  font-size: 20px;
+  font-family: "Press Start 2P";
+  text-align: center;
+  line-height: 50px;
+}
+
+.spacebar {
+  font-size: 30px;
+  align-self: center;
+  color: white;
+  font-family: 'Press Start 2P';
+}
+
+.corey-contact {
+  font-size: 25px;
+  color: white;
+  align-self: center;
+  /*text-align: right;*/
+}
+
+.linked-in-link {
+  color: white;
+  font-size: 25px;
+}
+
+.linked-in-open {
+  color: white;
+  font-size: 25px;
 }
