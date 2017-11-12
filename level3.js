@@ -1,6 +1,5 @@
 function level3(timer) {
   let nextLevel;
-  let resetGame;
   let clearTime;
   countDown(timer);
   let cancelFrame;
@@ -35,8 +34,8 @@ function level3(timer) {
         [0,0,0,0,1,3,1,3,1,3,1,1,1,1,1,1,1,1,3,1,3,1,3,1,0,0,0,0],
         [0,0,1,1,1,3,1,3,1,3,1,3,3,3,3,3,3,1,3,1,3,1,3,1,0,0,0,0],
         [0,0,1,2,2,3,1,3,1,3,1,3,1,1,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,1,1,1,1,1,3,1,3,1,3,1,1,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,1,3,1,4,4,3,3,1,3,1,3,1,3,1,0,0,0,0],
+        [0,0,1,1,1,1,1,3,1,3,1,3,1,4,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
+        [0,0,0,0,0,0,1,3,1,3,1,3,1,4,3,3,3,1,3,1,3,1,3,1,0,0,0,0],
         [0,0,0,0,0,0,1,3,1,3,1,3,1,1,1,1,1,1,3,1,3,1,3,1,0,0,0,0],
         [0,0,0,0,0,0,1,3,1,3,1,3,3,3,3,3,3,3,3,1,3,1,3,1,0,0,0,0],
         [0,0,0,0,0,0,1,3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3,1,0,0,0,0],
@@ -107,34 +106,20 @@ function level3(timer) {
     nextLevel = function nextLevel() {
       clearTimeout(clearTime);
       clearTimeout(stopSpin);
+      document.getElementById('timer').innerHTML = "Get Ready!";
       $("#level3").hide()
       $("#canvas").show();
+      let item = document.getElementById("canvas");
+      item.style.transform = `rotate(0deg)`;
       startLevel5(40);
       keepSpinning([-2, -1, 1, 2], 0, "canvas");
-    }
-
-    resetGame = function resetGame() {
-      $("#gameOverScreen").show();
-      clearTimeout(clearTime);
-      clearTimeout(stopSpin);
-      document.addEventListener("keypress", (e) => {
-      if(e.keyCode === 32) {
-        $("#gameOverScreen").hide();
-        // window.location.reload();
-        // $("#opening-screen").hide();
-        $("#level3").hide()
-        $("#level1").show()
-        let item = document.getElementById("level1");
-        item.style.transform = `rotate(0deg)`;
-        keepSpinning([-2, -1, 1, 2], 0, "level1");
-        startGame(30);
-      }}, {once: true});
-      // document.removeEventListener("keypress", (e) => SpaceBar(e))
     }
 
     function countDown(duration) {
       if(duration < 0) {
         document.getElementById('timer').innerHTML = "Times up!";
+        clearTimeout(clearTime);
+        clearTimeout(stopSpin);
         resetGame();
       } else {
       let minutes = Math.floor(duration / 60);

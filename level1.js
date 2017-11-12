@@ -1,6 +1,5 @@
 function startGame(timer) {
   let nextLevel;
-  let resetGame;
   let clearTime;
   countDown(timer);
   let cancelFrame;
@@ -107,28 +106,15 @@ function startGame(timer) {
     nextLevel = function nextLevel() {
       clearTimeout(clearTime);
       clearTimeout(stopSpin);
+      document.getElementById('timer').innerHTML = "Get Ready!";
       $("#level1").hide()
-      $("#level2").show();
+      $("#level2").show()
+      let item = document.getElementById("level2");
+      item.style.transform = `rotate(0deg)`;;
       keepSpinning([-2, -1, 1, 2], 0, "level2");
       level2(30);
     }
 
-    resetGame = function resetGame() {
-      $("#gameOverScreen").show();
-      clearTimeout(clearTime);
-      clearTimeout(stopSpin);
-      document.addEventListener("keypress", (e) => {
-      if(e.keyCode === 32) {
-        $("#gameOverScreen").hide();
-        // window.location.reload();
-        // $("#opening-screen").hide();
-        let item = document.getElementById("level1");
-        item.style.transform = `rotate(0deg)`;
-        keepSpinning([-2, -1, 1, 2], 0, "level1");
-        startGame(30);
-      }}, {once: true});
-      // document.removeEventListener("keypress", (e) => SpaceBar(e))
-    }
 
     var oneRun = function(fn) {
       var executed;
@@ -142,8 +128,9 @@ function startGame(timer) {
     };
 
     function countDown(duration) {
-      if(duration < 0) {
+      if(duration <= 0) {
         document.getElementById('timer').innerHTML = "Times up!";
+        // clearTimeout(clearTime);
         resetGame();
       } else {
       let minutes = Math.floor(duration / 60);

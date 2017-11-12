@@ -1,5 +1,4 @@
 function startLevel5(timer) {
-  let resetGame;
   let clearTime;
   countDown(timer);
   let cancelFrame;
@@ -104,26 +103,6 @@ function startLevel5(timer) {
     };
 
 
-
-    resetGame = function resetGame() {
-      $("#gameOverScreen").show();
-      clearTimeout(clearTime);
-      clearTimeout(stopSpin);
-      document.addEventListener("keypress", (e) => {
-      if(e.keyCode === 32) {
-        $("#gameOverScreen").hide();
-        // window.location.reload();
-        // $("#opening-screen").hide();
-        $("#canvas").hide()
-        $("#level1").show()
-        let item = document.getElementById("level1");
-        item.style.transform = `rotate(0deg)`;
-        keepSpinning([-2, -1, 1, 2], 0, "level1");
-        startGame(30);
-      }}, {once: true});
-      // document.removeEventListener("keypress", (e) => SpaceBar(e))
-    }
-
     function countDown(duration) {
       if(duration < 0) {
         document.getElementById('timer').innerHTML = "Times up!";
@@ -143,24 +122,6 @@ function startLevel5(timer) {
     }
     }
 
-
-    // function gameOver() {
-    //   $("#gameOverScreen").show();
-    //   // document.removeEventListener("keydown");
-    //   // clearTimeout(stopSpin);
-    //   // document.addEventListener("keypress", (e) => resetGame(e), {once: true});
-    //
-    //
-    //
-    //   // document.addEventListener("keypress", (e)=>{
-    //   //   if(e.keyCode === 32) {
-    //   //     $("#gameOverScreen").hide();
-    //   //     // document.removeEventListener("keypress")
-    //   //     // keepSpinning();
-    //   //   }
-    //   // });
-    //
-    // }
 
     let mover = {
       run_x: 82,

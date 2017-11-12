@@ -18,7 +18,12 @@ background-color: black;
 }
 
 #timer {
-  color: white; 
+  color: white;
+  font-size: 30px;
+  top: 40px;
+  right: 40px;
+  position: absolute;
+  margin-right: 30px; 
 }
  #opening-screen {
    z-index: 1;
