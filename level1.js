@@ -1,6 +1,5 @@
 function startGame(timer) {
   let nextLevel;
-  let clearTime;
   countDown(timer);
   let cancelFrame;
     let gameOver = false;
@@ -110,7 +109,7 @@ function startGame(timer) {
       $("#level1").hide()
       $("#level2").show()
       let item = document.getElementById("level2");
-      item.style.transform = `rotate(0deg)`;;
+      item.style.transform = `rotate(0deg)`;
       keepSpinning([-2, -1, 1, 2], 0, "level2");
       level2(30);
     }
@@ -126,26 +125,6 @@ function startGame(timer) {
         return executed ;
       };
     };
-
-    function countDown(duration) {
-      if(duration <= 0) {
-        document.getElementById('timer').innerHTML = "Times up!";
-        // clearTimeout(clearTime);
-        resetGame();
-      } else {
-      let minutes = Math.floor(duration / 60);
-      let seconds = duration % 60;
-        clearTime = setTimeout( () => {
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-        duration--;
-        countDown(duration);
-        console.log(minutes + ":" + seconds);
-        document.getElementById('timer').innerHTML = minutes + ":" + seconds;
-
-      }, 1000);
-    }
-    }
 
     let mover = {
       run_x: 82,
