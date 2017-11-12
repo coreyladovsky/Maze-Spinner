@@ -1,12 +1,15 @@
 function spaceBar(e) {
   if(e.keyCode === 32) {
-    $("#opening-screen").hide()
-    $("#gameOverScreen").hide()
-    startGame(3);
-    keepSpinning([-2, -1, 1, 2], 0, "canvas");
-    // countDown(40);
+    $("#opening-screen").hide();
+    $("#gameOverScreen").hide();
+    $("#level2").hide();
+    $("#canvas").hide();
+    $("#level3").hide();
+    $("#level1").show();
+
+    startGame(30);
+    keepSpinning([-2, -1, 1, 2], 0, "level1");
   }
-  // document.removeEventListener("keypress", (e) => SpaceBar(e))
 }
 
 

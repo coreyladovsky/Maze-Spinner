@@ -7,6 +7,7 @@ cursor: none;
 }
 body {
 overflow: hidden;
+background-color: black;
 }
 .canvas-container {
   display: flex;
@@ -14,6 +15,10 @@ overflow: hidden;
 
   width: 100%;
   height: 100%;
+}
+
+#timer {
+  color: white; 
 }
  #opening-screen {
    z-index: 1;

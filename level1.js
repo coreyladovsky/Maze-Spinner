@@ -1,10 +1,11 @@
-function startLevel5(timer) {
+function startGame(timer) {
+  let nextLevel;
   let resetGame;
   let clearTime;
   countDown(timer);
   let cancelFrame;
     let gameOver = false;
-    let canvas = document.getElementById('canvas');
+    let canvas = document.getElementById('level1');
     let ctx = canvas.getContext("2d");
     let draw_reset = () => {
       ctx.fillStyle = "white";
@@ -24,27 +25,27 @@ function startLevel5(timer) {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,1,1,1,1,1,3,3,3,3,1,1,1,1,1,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,1,3,3,3,1,3,1,1,3,1,3,3,3,1,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,1,3,1,3,3,1,3,1,3,1,0,0,0,0,0,0,0,0],
-        [0,0,0,1,1,1,1,3,1,3,1,3,1,3,1,3,3,1,3,1,0,0,0,0,0,0,0,0],
-        [0,0,0,1,3,3,3,3,1,3,1,3,1,3,1,3,1,1,3,1,1,1,1,1,0,0,0,0],
-        [0,0,0,1,3,1,1,1,1,3,3,3,1,3,3,3,1,3,3,1,3,3,3,1,0,0,0,0],
-        [0,0,0,1,3,3,3,3,1,1,1,1,1,1,1,1,1,3,1,3,3,1,3,1,0,0,0,0],
-        [0,0,1,1,1,1,1,3,1,3,3,3,3,3,3,3,3,3,1,3,1,1,3,1,0,0,0,0],
-        [0,0,1,2,2,3,1,3,1,3,1,1,1,1,1,1,1,1,1,3,3,1,3,1,0,0,0,0],
-        [0,0,1,1,1,3,1,3,1,3,1,3,3,3,3,1,3,3,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,1,3,1,3,3,3,1,1,3,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,3,3,1,1,1,1,1,3,3,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,1,1,1,1,3,3,3,3,3,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,1,3,3,3,3,1,1,1,1,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,1,3,1,1,1,1,1,3,3,3,1,3,1,3,1,3,1,4,1,0,0,0,0],
-        [0,0,0,0,0,1,3,1,3,3,3,1,3,1,3,1,3,1,3,1,3,1,4,1,0,0,0,0],
-        [0,0,0,0,0,1,3,3,3,1,3,1,3,1,3,1,3,1,3,1,3,1,1,1,0,0,0,0],
-        [0,0,0,0,0,1,1,1,1,1,3,1,3,1,3,1,3,1,3,3,3,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,1,3,3,3,1,3,3,3,1,1,1,1,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,3,1,1,1,1,1,1,1,1,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,1,1,1,1,1,1,3,1,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,1,2,2,3,3,3,3,1,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,3,3,3,3,3,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,3,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,3,1,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,3,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,3,3,3,4,4,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -61,7 +62,7 @@ function startLevel5(timer) {
             if(trueCollisionCheck(mover.run_x + 7, mover.run_y, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y, y * 25, x * 25, 25)) {
               mover.revertX();
             }
-            if(trueCollisionCheck(mover.run_x + 7, mover.run_y - 3.5, y  * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y - 3.5, y * 25, x * 25, 25)) {
+            if(trueCollisionCheck(mover.run_x + 7, mover.run_y - 0.5, y  * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y - 3.5, y * 25, x * 25, 25)) {
               mover.revertX();
             }
             if(trueCollisionCheck(mover.run_x + 7, mover.run_y + 3.5, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y + 3.5, y * 25, x * 25, 25)) {
@@ -89,10 +90,10 @@ function startLevel5(timer) {
             ctx.fillStyle = "red";
             ctx.fillRect(x * 25, y * 25, 25, 25)
 
-            if(trueCollisionCheck(mover.run_x, mover.run_y - 7, y * 25, x * 25, 25)) {
+            if(trueCollisionCheck(mover.run_x - 7, mover.run_y, y * 25, x * 25, 25)) {
 
               if(gameOver === false) {
-                resetGame();
+                nextLevel()
               }
                gameOver = true ;
 
@@ -103,7 +104,14 @@ function startLevel5(timer) {
       }
     };
 
-
+    nextLevel = function nextLevel() {
+      clearTimeout(clearTime);
+      clearTimeout(stopSpin);
+      $("#level1").hide()
+      $("#level2").show();
+      keepSpinning([-2, -1, 1, 2], 0, "level2");
+      level2(30);
+    }
 
     resetGame = function resetGame() {
       $("#gameOverScreen").show();
@@ -114,8 +122,6 @@ function startLevel5(timer) {
         $("#gameOverScreen").hide();
         // window.location.reload();
         // $("#opening-screen").hide();
-        $("#canvas").hide()
-        $("#level1").show()
         let item = document.getElementById("level1");
         item.style.transform = `rotate(0deg)`;
         keepSpinning([-2, -1, 1, 2], 0, "level1");
@@ -123,6 +129,17 @@ function startLevel5(timer) {
       }}, {once: true});
       // document.removeEventListener("keypress", (e) => SpaceBar(e))
     }
+
+    var oneRun = function(fn) {
+      var executed;
+      return function() {
+        if(fn) {
+          executed = fn.apply(this, arguments);
+          fn = null ;
+        }
+        return executed ;
+      };
+    };
 
     function countDown(duration) {
       if(duration < 0) {
@@ -142,25 +159,6 @@ function startLevel5(timer) {
       }, 1000);
     }
     }
-
-
-    // function gameOver() {
-    //   $("#gameOverScreen").show();
-    //   // document.removeEventListener("keydown");
-    //   // clearTimeout(stopSpin);
-    //   // document.addEventListener("keypress", (e) => resetGame(e), {once: true});
-    //
-    //
-    //
-    //   // document.addEventListener("keypress", (e)=>{
-    //   //   if(e.keyCode === 32) {
-    //   //     $("#gameOverScreen").hide();
-    //   //     // document.removeEventListener("keypress")
-    //   //     // keepSpinning();
-    //   //   }
-    //   // });
-    //
-    // }
 
     let mover = {
       run_x: 82,

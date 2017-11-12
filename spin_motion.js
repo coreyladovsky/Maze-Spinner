@@ -24,7 +24,8 @@ function rotate(angle, counter, degrees, el){
   // console.log(degrees);
   setTimeout(() => {
     counter++ ;
-
+    let item = document.getElementById(el);
+    item.style.transform = `rotate(${degrees}deg)`;
     if(counter < 90) {
       setTimeout(() => {
         rotate(angle, counter, degrees, el);
