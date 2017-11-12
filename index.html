@@ -12,33 +12,35 @@
 
 
     <div class="canvas-container">
-      <div id="opening-screen">
 
+      <div id="opening-screen">
         <h1 class="game-name-opener"><img id="spinning-star" src="./images/star.png" alt="">Maze Spinner <img id="spinning-star2" src="./images/star.png" alt=""><br> <br>By Corey Ladovsky</h1>
         <div class="instructions">
-
           <div>Use the Arrow Keys to navigate  the maze  <br> (a s d w, also work too)</div>
-
           <div>The Maze will rotate during the game <br> so you'll have to think  quickly on your feet!</div>
-
           <div>Just remeber, North on the map will always be linked to your  "up" key!   Good Luck!</div>
-
-
         </div>
         <p class="spacebar">Press the SpaceBar to start the Game!</p>
 
         <div class="corey-contact">
          <a class="linked-in-link" href="https://www.linkedin.com/in/corey-ladovsky/">Linked In</a>
         </div>
-      </div>
-      <div id="gameOverScreen">
-        <div class="game-over-text-all">
 
-        <h1 class="game-over-text">GAME OVER!</h1>
-        <div class="press-button">
-          Press the SpaceBar to play again!
+      </div>
+
+
+      <div id="gameOverScreen">
+
+        <div class="game-over-text-all">
+          <h1 class="game-over-text">GAME OVER!</h1>
+          <div class="press-button">
+            Press the SpaceBar to play again!
+          </div>
         </div>
       </div>
+
+      <div id="timer">
+        Get Ready!
       </div>
       <canvas id="canvas" width="700" height="700"></canvas>
 
@@ -49,10 +51,10 @@
       <a href="#">coreyladovsky@gmail.com</a>
 
     </div>
-
     <script type="text/javascript" src="spin_motion.js"></script>
     <script type="text/javascript" src="starting_the_game.js"></script>
     <script type="text/javascript" src="collision.js"></script>
     <script type="text/javascript" src="maze_spinner.js"> </script>
+    <script type="text/javascript" src="countdown_clock.js"></script>
   </body>
 </html>

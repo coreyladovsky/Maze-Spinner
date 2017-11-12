@@ -1,15 +1,19 @@
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const canvas = document.querySelector('canvas')
-    const ctx = canvas.getContext("2d")
+function startGame(timer) {
+  let resetGame;
+  let clearTime;
+  countDown(timer);
+  let cancelFrame;
+    let gameOver = false;
+    const canvas = document.querySelector('canvas');
+    const ctx = canvas.getContext("2d");
     const draw_reset = () => {
-      ctx.fillStyle = "white"
+      ctx.fillStyle = "white";
       ctx.font = "30px Arial";
       ctx.fillText("N",330,25);
       ctx.beginPath();
-      ctx.arc(350, 350, 320, 0, Math.PI * 2, true)
+      ctx.arc(350, 350, 320, 0, Math.PI * 2, true);
       ctx.moveTo(110, 110);
-      ctx.fillStyle = "yellow"
+      ctx.fillStyle = "yellow";
       ctx.stroke();
       ctx.fill();
       ctx.closePath();
@@ -49,10 +53,10 @@
       ]
       for(let y = 0; y < maze.length; y++) {
         for(let x = 0; x < maze[y].length; x++) {
-          let tile = maze[y][x]
+          let tile = maze[y][x];
           if(maze[y][x] === 1) {
             ctx.fillStyle = "black";
-            ctx.fillRect(x * 25, y * 25, 25, 25)
+            ctx.fillRect(x * 25, y * 25, 25, 25);
 
             if(trueCollisionCheck(mover.run_x + 7, mover.run_y, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y, y * 25, x * 25, 25)) {
               mover.revertX();
@@ -86,42 +90,86 @@
             ctx.fillRect(x * 25, y * 25, 25, 25)
 
             if(trueCollisionCheck(mover.run_x, mover.run_y - 7, y * 25, x * 25, 25)) {
-              gameOver();
+
+              if(gameOver === false) {
+                resetGame();
+              }
+               gameOver = true ;
+
+
             }
           }
         }
       }
     };
 
-    function spaceBar(e) {
+
+
+    resetGame = function resetGame() {
+      $("#gameOverScreen").show();
+      clearTimeout(clearTime);
+      clearTimeout(stopSpin);
+      document.addEventListener("keypress", (e) => {
       if(e.keyCode === 32) {
-        $("#gameOverScreen").hide()
-        mover.run_x = 88;
-        mover.run_y = 337;
-        mover.last_x = 88;
-        mover.last_y = 337;
-        // keepSpinning();
-      }
+        $("#gameOverScreen").hide();
+        // window.location.reload();
+        // $("#opening-screen").hide();
+        let item = document.getElementById("canvas");
+        item.style.transform = `rotate(0deg)`;
+        keepSpinning([-2, -1, 1, 2], 0, "canvas");
+        startGame(30);
+      }}, {once: true});
       // document.removeEventListener("keypress", (e) => SpaceBar(e))
     }
 
-    function gameOver() {
-      $("#gameOverScreen").show();
-      // document.removeEventListener("keydown");
-      clearTimeout(stopSpin);
-      document.addEventListener("keypress", (e) => spaceBar(e), {once: true});
+    var oneRun = function(fn) {
+      var executed;
+      return function() {
+        if(fn) {
+          executed = fn.apply(this, arguments);
+          fn = null ;
+        }
+        return executed ;
+      };
+    };
 
+    function countDown(duration) {
+      if(duration < 0) {
+        document.getElementById('timer').innerHTML = "Times up!";
+        resetGame();
+      } else {
+      let minutes = Math.floor(duration / 60);
+      let seconds = duration % 60;
+        clearTime = setTimeout( () => {
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        duration--;
+        countDown(duration);
+        console.log(minutes + ":" + seconds);
+        document.getElementById('timer').innerHTML = minutes + ":" + seconds;
 
-
-      // document.addEventListener("keypress", (e)=>{
-      //   if(e.keyCode === 32) {
-      //     $("#gameOverScreen").hide();
-      //     // document.removeEventListener("keypress")
-      //     // keepSpinning();
-      //   }
-      // });
-
+      }, 1000);
     }
+    }
+
+
+    // function gameOver() {
+    //   $("#gameOverScreen").show();
+    //   // document.removeEventListener("keydown");
+    //   // clearTimeout(stopSpin);
+    //   // document.addEventListener("keypress", (e) => resetGame(e), {once: true});
+    //
+    //
+    //
+    //   // document.addEventListener("keypress", (e)=>{
+    //   //   if(e.keyCode === 32) {
+    //   //     $("#gameOverScreen").hide();
+    //   //     // document.removeEventListener("keypress")
+    //   //     // keepSpinning();
+    //   //   }
+    //   // });
+    //
+    // }
 
     const mover = {
       run_x: 555,
@@ -132,8 +180,7 @@
       left_side: this.run_x - 7,
       top_side: this.run_y - 7,
       bottom_side: this.run_y + 7,
-      velocity_y: 0,
-      velocity_x: 0,
+
       ctx,
       start: function() {
 
@@ -214,7 +261,7 @@
       ctx.clearRect(0,0, 700, 700)
       draw_reset()
       mover.start()
-      requestAnimationFrame(step)
+      cancelFrame = requestAnimationFrame(step)
     }
 
     document.addEventListener("keydown", (e) => {
@@ -269,5 +316,4 @@
         console.log("Quit reading the console and pay attention to the game!");
       }
     })
-
-  })
+}

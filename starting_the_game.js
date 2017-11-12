@@ -2,7 +2,9 @@ function spaceBar(e) {
   if(e.keyCode === 32) {
     $("#opening-screen").hide()
     $("#gameOverScreen").hide()
-    keepSpinning();
+    startGame(3);
+    keepSpinning([-2, -1, 1, 2], 0, "canvas");
+    // countDown(40);
   }
   // document.removeEventListener("keypress", (e) => SpaceBar(e))
 }

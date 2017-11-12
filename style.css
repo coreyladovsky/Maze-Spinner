@@ -2,7 +2,7 @@ canvas {
 border : 5px solid green;
 border-radius: 50%;
 background-color: black;
-cursor: none; 
+cursor: none;
 /*display: none; */
 }
 body {
@@ -31,8 +31,7 @@ overflow: hidden;
  #spinning-star {
    height: 100px;
    width: 100px;
-  ` /*margin-left: 20px;*/`
-   margin-right: 30px;
+
  }
  #spinning-star2 {
    height: 100px;
@@ -108,8 +107,9 @@ overflow: hidden;
 
 .game-over-text {
   color: red;
+  animation-duration: 3s;
+  animation-name: slidein:
 
-}
 
 
 
