@@ -1,4 +1,7 @@
 function startGame(timer) {
+  // window.removeEventListener("keydown", (e) => {
+  //   e.stopPropagation();
+  // }, true);
   let nextLevel;
   countDown(timer);
   let cancelFrame;
@@ -94,6 +97,8 @@ function startGame(timer) {
                 nextLevel()
               }
                gameOver = true ;
+
+
 
 
             }

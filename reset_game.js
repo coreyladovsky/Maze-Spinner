@@ -1,4 +1,5 @@
 function resetGame() {
+
   $("#gameOverScreen").show();
   document.addEventListener("keypress", (e) => {
   if(e.keyCode === 32) {
@@ -13,4 +14,9 @@ function resetGame() {
     keepSpinning([-2, -1, 1, 2], 0, "level1");
     startGame(30);
   }}, {once: true});
+}
+
+
+function stopEvents() {
+  event.stopPropagation();
 }

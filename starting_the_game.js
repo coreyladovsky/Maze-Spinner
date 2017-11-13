@@ -1,20 +1,23 @@
 function spaceBar(e) {
   if(e.keyCode === 32) {
     $("#opening-screen").hide();
+    $("#you-win-screen").hide();
     $("#gameOverScreen").hide();
     $("#level2").hide();
     $("#canvas").hide();
     $("#level3").hide();
     $("#level1").show();
 
-    startGame(30);
+    startGame(5);
     keepSpinning([-2, -1, 1, 2], 0, "level1");
   }
 }
 
 
 
-$("#gameOverScreen").hide()
+$("#gameOverScreen").hide();
+  $("#you-win-screen").hide();
+
 
 let looper;
 let deg = 0;

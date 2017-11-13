@@ -90,7 +90,7 @@ function startLevel5(timer) {
             if(trueCollisionCheck(mover.run_x, mover.run_y - 7, y * 25, x * 25, 25)) {
 
               if(gameOver === false) {
-                resetGame();
+                restartGame();
               }
                gameOver = true ;
 
@@ -100,6 +100,21 @@ function startLevel5(timer) {
         }
       }
     };
+
+    function restartGame() {
+
+      $("#you-win-screen").show();
+      document.addEventListener("keypress", (e) => {
+      if(e.keyCode === 32) {
+        $("#opening-screen").hide();
+        $("#gameOverScreen").hide();
+        $("#level2").hide();
+        $("#canvas").hide();
+        $("#level3").hide();
+        $("#level1").show();
+        window.location.reload();
+      }}, {once: true});
+    }
 
 
     let mover = {
