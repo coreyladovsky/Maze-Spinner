@@ -21,7 +21,6 @@ let stopSpin;
 
 function rotate(angle, counter, degrees, el){
   degrees += angle;
-  // console.log(degrees);
   setTimeout(() => {
     counter++ ;
     let item = document.getElementById(el);
