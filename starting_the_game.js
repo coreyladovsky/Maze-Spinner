@@ -8,7 +8,7 @@ function spaceBar(e) {
     $("#level3").hide();
     $("#level1").show();
 
-    startGame(5);
+    startGame(30);
     keepSpinning([-2, -1, 1, 2], 0, "level1");
   }
 }
