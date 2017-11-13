@@ -19,11 +19,12 @@ background-color: black;
 
 #timer {
   color: white;
-  font-size: 30px;
+  font-size: 60px;
   top: 40px;
   right: 40px;
   position: absolute;
   margin-right: 30px;
+  font-family: 'Press Start 2P';
 }
  #opening-screen {
    z-index: 1;
@@ -219,12 +220,27 @@ background-color: black;
 
 }
 
+.link-list-gameover {
+  display: flex; 
+  justify-content: flex-end;
+  color: white; 
+  font-size: 30px; 
+  list-style-type: none; 
+  bottom: 10px; 
+  right: 20px; 
+  position: absolute;
+}
+
+.link-list-gameover li {
+  margin-right: 30px; 
+}
 
 
 
-
-
-
+.linked-list {
+  font-size: 35px;
+  margin-right: 20px; 
+}
 
 
 

@@ -105,7 +105,7 @@ function level2(timer) {
     nextLevel = function nextLevel() {
       clearTimeout(clearTime);
       clearTimeout(stopSpin);
-      document.getElementById('timer').innerHTML = "Get Ready!";
+      document.getElementById('timer').innerHTML = "Ready!";
       $("#level2").hide()
       let item = document.getElementById("level3");
       item.style.transform = `rotate(0deg)`;

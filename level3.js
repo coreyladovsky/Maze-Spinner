@@ -105,7 +105,7 @@ function level3(timer) {
     nextLevel = function nextLevel() {
       clearTimeout(clearTime);
       clearTimeout(stopSpin);
-      document.getElementById('timer').innerHTML = "Get Ready!";
+      document.getElementById('timer').innerHTML = "Ready!";
       $("#level3").hide()
       $("#canvas").show();
       let item = document.getElementById("canvas");

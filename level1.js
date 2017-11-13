@@ -110,7 +110,7 @@ function startGame(timer) {
     nextLevel = function nextLevel() {
       clearTimeout(clearTime);
       clearTimeout(stopSpin);
-      document.getElementById('timer').innerHTML = "Get Ready!";
+      document.getElementById('timer').innerHTML = "Ready!";
       $("#level1").hide()
       $("#level2").show()
       let item = document.getElementById("level2");
