@@ -12,7 +12,6 @@ function countDown(duration) {
     seconds = seconds < 10 ? "0" + seconds : seconds;
     duration--;
     countDown(duration);
-    console.log(minutes + ":" + seconds);
     document.getElementById('timer').innerHTML = minutes + ":" + seconds;
 
   }, 1000);
