@@ -14,16 +14,43 @@
     <div class="canvas-container">
 
       <div id="opening-screen">
-        <h1 class="game-name-opener"><img id="spinning-star" src="./images/star.png" alt="">Maze Spinner <img id="spinning-star2" src="./images/star.png" alt=""><br> <br>By Corey Ladovsky</h1>
-        <div class="instructions">
-          <div>Use the Arrow Keys to navigate  the maze  <br> (a s d w, also work too)</div>
-          <div>The Maze will rotate during the game <br> so you'll have to think  quickly on your feet!</div>
-          <div>Just remeber, North on the map will always be linked to your  "up" key!   Good Luck!</div>
+        <div class="game-name-opener">
+          <ul class="title">
+            <h1 class="game-name-opener">Maze </h1> <h1 id="spinner-text" class="game-name-opener" >Spinner</h1>
+
+          </ul>
+
+          <h2 class="creator"><a class="contact" href="https://coreyladovsky.github.io/">By Corey Ladovsky</a></h2>
         </div>
-        <p class="spacebar">Press the SpaceBar to start the Game!</p>
+
+        <ul class="intro-content">
+          <li>
+          <div class="instructions">
+            <ul>
+              <div class="instruc"> Instructions </div>
+              <li>Use the Arrow Keys to move </li>
+              <li>a s d w, work too</li>
+              <li>The Maze will rotate</li>
+              <li>Get to the red</li>
+              <li>North on the maze is your "up" key!</li>
+              Good luck!
+            </ul>
+          </div>
+          </li>
+          <li class="holding-spacebar">
+            <div class="spacebar">Press the SpaceBar <br> to start the Game!</div>
+          </li>
+        </ul>
 
         <div class="corey-contact">
-         <a class="linked-in-link" href="https://www.linkedin.com/in/corey-ladovsky/">Linked In</a>
+          <ul class="link-list">
+
+            <li> <a class="githublink" href="https://github.com/coreyladovsky"><i class="fa fa-github" aria-hidden="true"></i></a> </li>
+            <li>
+              <a class="linked-in-link" href="https://www.linkedin.com/in/corey-ladovsky/"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+            </li>
+            <li> <a class="linked-in-link" href="https://angel.co/corey-ladovsky"> <i class="fa fa-angellist" aria-hidden="true"></i></a></li>
+          </ul>
         </div>
 
       </div>
@@ -64,6 +91,7 @@
     </div>
     <!-- <script type="text/javascript" src="mover.js"></script> -->
     <script type="text/javascript" src="spin_motion.js"></script>
+    <script type="text/javascript" src="opening_spin.js"></script>
     <script type="text/javascript" src="starting_the_game.js"></script>
     <script type="text/javascript" src="reset_game.js"></script>
     <script type="text/javascript" src="countdown_clock.js"></script>

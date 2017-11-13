@@ -232,6 +232,7 @@ function level3(timer) {
           break;
         default:
         console.log("Quit reading the console and pay attention to the game!");
+        console.log("https://github.com/coreyladovsky");
       }
     })
     step()

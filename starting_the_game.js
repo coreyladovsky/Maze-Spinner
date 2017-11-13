@@ -33,8 +33,8 @@ if(deg > 359){
 }
 }
 
-
-loops("spinning-star", 50);
-loops("spinning-star2", 50);
+opener([1,-1], 0, "spinner-text")
+// loops("spinning-star", 50);
+// loops("spinning-star2", 50);
 
   document.addEventListener("keypress", (e) => spaceBar(e), {once: true})

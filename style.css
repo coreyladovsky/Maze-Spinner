@@ -51,42 +51,108 @@ background-color: black;
  }
 
 .game-name-opener {
-  color: white;
-  font-size: 40px;
+  color: yellow;
+  font-size: 70px;
   font-weight: bold;
   font-family: 'Press Start 2P';
-  margin-top: 40px;
+  margin-top: -60px;
   align-self: center;
+  /*display: flex;
+  justify-content: space-between;*/
 }
 
+.title {
+  display: flex;
+}
+
+#spinner-text {
+  margin-left: 40px;
+}
+
+.creator {
+
+  font-size: 30px;
+  text-align: right;
+  margin-top: -40px;
+  margin-bottom: 30px;
+  color: white;
+}
+
+.contact {
+  color: white;
+}
+.intro-content {
+  display: flex;
+  justify-content: space-between;
+}
 .instructions {
   color: white;
-  align-self: center;
-  font-size: 20px;
+  align-self: left;
+  font-size: 15px;
   font-family: "Press Start 2P";
-  text-align: center;
-  line-height: 50px;
-  width: 80%;
+  text-align: left;
+  line-height: 40px;
+  width: 600px;
+  background-color: black;
+  margin-left: 10%;
+  border-radius: 10px;
+  border: 5px solid white;
+}
+
+.instruc {
+  font-size: 20px;
+}
+
+.holding-spacebar {
+  list-style-type: none;
+  vertical-align: middle;
+  margin-top: 110px;
+  margin-right: 150px;
 }
 
 .spacebar {
-  font-size: 30px;
-  align-self: center;
-  color: white;
+  font-size: 25px;
+  align-self: right;
+  color: black;
   font-family: 'Press Start 2P';
+  background-color: red;
+  border-radius: 10px;
+  padding: 15px;
+  line-height: 30px;
 }
 
 .corey-contact {
-  font-size: 25px;
+  width: 100%;
+  font-size: 45px;
   color: white;
-  align-self: center;
+  align-self: right;
+  text-align: right;
   /*text-align: right;*/
+  display: flex;
+  justify-content: flex-end;
+}
+.link-list {
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  align-self: right;
+  /*border: 1px solid yellow;*/
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.link-list li {
+  margin-right: 30px;
+  color: white;
+}
+
+.githublink {
+  color: white;
 }
 
 .linked-in-link {
   color: white;
-  font-size: 15px;
-  font-family: 'Press Start 2P';
+
 }
 
 .linked-in-open {
