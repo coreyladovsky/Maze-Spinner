@@ -104,7 +104,7 @@ function startLevel5(timer) {
     function restartGame() {
 
       $("#you-win-screen").show();
-      document.addEventListener("keypress", (e) => {
+      document.addEventListener("keydown", (e) => {
       if(e.keyCode === 32) {
         $("#opening-screen").hide();
         $("#gameOverScreen").hide();
