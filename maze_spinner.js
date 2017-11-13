@@ -210,7 +210,7 @@ function startLevel5(timer) {
       cancelFrame = requestAnimationFrame(step)
     }
 
-    document.addEventListener("keydown", (e) => {
+    $(document).on("keydown", (e) => {
       switch (e.key) {
         case "ArrowUp":
         case "w":
@@ -240,7 +240,7 @@ function startLevel5(timer) {
 
 
 
-    document.addEventListener("keyup", (e) => {
+    $(document).on("keyup", (e) => {
       switch (e.key) {
         case "ArrowUp":
         case "w":

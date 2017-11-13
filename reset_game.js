@@ -1,5 +1,5 @@
 function resetGame() {
-
+  $(document).off("keydown")
   $("#gameOverScreen").show();
   document.addEventListener("keypress", (e) => {
   if(e.keyCode === 32) {
