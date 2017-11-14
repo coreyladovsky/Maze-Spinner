@@ -105,6 +105,7 @@ function level2(timer) {
     nextLevel = function nextLevel() {
       clearTimeout(clearTime);
       clearTimeout(stopSpin);
+      $("#timer").css({"color": "white"});
       document.getElementById('timer').innerHTML = "Ready!";
       $("#level2").hide()
       let item = document.getElementById("level3");

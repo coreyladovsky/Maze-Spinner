@@ -1,4 +1,5 @@
 function countDown(duration) {
+  let color = "white"
   if(duration < 0) {
     document.getElementById('timer').innerHTML = "Times up!";
       clearTimeout(clearTime);
@@ -9,10 +10,14 @@ function countDown(duration) {
   let seconds = duration % 60;
     clearTime = setTimeout( () => {
     minutes = minutes < 10 ? "0" + minutes : minutes;
+    if(seconds <= 10){
+      color = "red"
+    }
     seconds = seconds < 10 ? "0" + seconds : seconds;
     duration--;
     countDown(duration);
     document.getElementById('timer').innerHTML =minutes + ":" + seconds;
+    $("#timer").css({"color": color});
 
   }, 1000);
 }
