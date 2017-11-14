@@ -221,36 +221,52 @@ background-color: black;
 }
 
 .link-list-gameover {
-  display: flex; 
+  display: flex;
   justify-content: flex-end;
-  color: white; 
-  font-size: 30px; 
-  list-style-type: none; 
-  bottom: 10px; 
-  right: 20px; 
+  color: white;
+  font-size: 30px;
+  list-style-type: none;
+  bottom: 10px;
+  right: 20px;
   position: absolute;
 }
 
 .link-list-gameover li {
-  margin-right: 30px; 
+  margin-right: 30px;
 }
 
 
 
 .linked-list {
   font-size: 35px;
-  margin-right: 20px; 
+  margin-right: 20px;
 }
 
 
+.game-name-and-creator {
+  color: white;
+  font-family: "Press Start 2P";
+  /*border: 1px solid yellow;*/
+  margin-right: 35px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  left: 50px;
+  position: absolute;
+  height: 95%;
+}
 
 
+.game-name-only {
+  font-size: 30px;
+  margin-top: 30px;
+}
 
 
-
-
-
-
+.creator-name-only {
+  font-size: 20px;
+  margin-bottom: 45px;
+}
 
 
 
