@@ -3,6 +3,7 @@ function resetGame() {
   $("#gameOverScreen").show();
   document.addEventListener("keypress", (e) => {
   if(e.keyCode === 32) {
+    $("#you-win-screen").hide(); 
     $("#opening-screen").hide();
     $("#gameOverScreen").hide();
     $("#level2").hide();
@@ -17,6 +18,6 @@ function resetGame() {
 }
 
 
-function stopEvents() {
-  event.stopPropagation();
-}
+// function stopEvents() {
+//   event.stopPropagation();
+// }
