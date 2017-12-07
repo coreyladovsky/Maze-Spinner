@@ -126,7 +126,8 @@ document.addEventListener("keypress", spaceBar, {once: true});
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-let stopSpin;
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return stopSpin; });
+ let stopSpin;
 
 function rotate(angle, counter, degrees, el){
   degrees += angle;
@@ -201,12 +202,16 @@ function rotation(angle, counter, degrees, el){
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(1);
+
+
 
 
 
 const startGame = (timer)  => {
   let nextLevel;
-   countDown(timer);
+   Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
   let cancelFrame;
   let gameOver = false;
   let canvas = document.getElementById('level1');
@@ -315,8 +320,8 @@ const startGame = (timer)  => {
     // };
 
     nextLevel = function nextLevel() {
-      clearTimeout(clearTime);
-      clearTimeout(stopSpin);
+      clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
+      clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* stopSpin */]);
       $("#timer").css({"color": "white"});
       document.getElementById('timer').innerHTML = "Ready!";
 
@@ -324,7 +329,7 @@ const startGame = (timer)  => {
       $("#level2").show()
       let item = document.getElementById("level2");
       item.style.transform = `rotate(0deg)`;
-      keepSpinning([-2, -1, 1, 2], 0, item);
+      Object(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
       level2(30);
     }
 
@@ -417,40 +422,40 @@ const startGame = (timer)  => {
     // }
     //
     function step() {
-      ctx.clearRect(0,0, 700, 700)
-      draw_reset()
-      mover.start()
-      cancelFrame = requestAnimationFrame(step)
+      ctx.clearRect(0,0, 700, 700);
+      gamedrawing.draw_reset();
+      mover.start();
+      cancelFrame = requestAnimationFrame(step);
     }
     //
     $(document).on("keydown", (e) => {
       switch (e.key) {
         case "ArrowUp":
         case "w":
-          mover.movement.down = false
-          mover.movement.up = true
+          mover.movement.down = false;
+          mover.movement.up = true;
           break;
         case "ArrowDown":
         case "s":
-          mover.movement.up = false
-          mover.movement.down = true
+          mover.movement.up = false;
+          mover.movement.down = true;
           break;
         case "ArrowRight":
         case "d":
-          mover.movement.left = false
-          mover.movement.right = true
+          mover.movement.left = false;
+          mover.movement.right = true;
           break;
         case "ArrowLeft":
         case "a":
-          mover.movement.right = false
-          mover.movement.left = true
+          mover.movement.right = false;
+          mover.movement.left = true;
           break;
         default:
         console.log("Please keep your eyes and attention on the game!");
         console.log("https://github.com/coreyladovsky");
       }
-    })
-    step()
+    });
+    step();
 
 
 
@@ -458,25 +463,25 @@ const startGame = (timer)  => {
       switch (e.key) {
         case "ArrowUp":
         case "w":
-        mover.movement.up = false
+        mover.movement.up = false;
           break;
         case "ArrowDown":
         case "s":
-        mover.movement.down = false
+        mover.movement.down = false;
         break;
         case "ArrowRight":
         case "d":
-        mover.movement.right = false
+        mover.movement.right = false;
         break;
         case "ArrowLeft":
         case "a":
-        mover.movement.left = false
+        mover.movement.left = false;
           break;
         default:
         console.log("Please keep your eyes and attention on the game!");
       }
-    })
-}
+    });
+};
 /* harmony export (immutable) */ __webpack_exports__["a"] = startGame;
 
 
@@ -486,12 +491,14 @@ const startGame = (timer)  => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collision__ = __webpack_require__(7);
+
 
 class GameDrawing {
   constructor(maze, ctx, mover) {
     this.maze = maze;
     this.ctx = ctx;
-    this.this.mover = this.mover;
+    this.mover = mover;
     this.gameOver = false;
   }
 
@@ -514,38 +521,38 @@ class GameDrawing {
           this.ctx.fillStyle = "black";
           this.ctx.fillRect(x * 25, y * 25, 25, 25);
 
-          if(trueCollisionCheck(this.mover.run_x + 7, this.mover.run_y, y * 25, x * 25, 25) || trueCollisionCheck(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
+          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
             this.mover.revertX();
           }
-          if(trueCollisionCheck(this.mover.run_x + 7, this.mover.run_y - 0.5, y  * 25, x * 25, 25) || trueCollisionCheck(this.mover.run_x - 7, this.mover.run_y - 3.5, y * 25, x * 25, 25)) {
+          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y - 0.5, y  * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y - 3.5, y * 25, x * 25, 25)) {
             this.mover.revertX();
           }
-          if(trueCollisionCheck(this.mover.run_x + 7, this.mover.run_y + 3.5, y * 25, x * 25, 25) || trueCollisionCheck(this.mover.run_x - 7, this.mover.run_y + 3.5, y * 25, x * 25, 25)) {
+          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y + 3.5, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y + 3.5, y * 25, x * 25, 25)) {
             this.mover.revertX();
           }
-          if(trueCollisionCheck(this.mover.run_x, this.mover.run_y + 7, y * 25, x * 25, 25) || trueCollisionCheck(this.mover.run_x, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y - 7, y * 25, x * 25, 25)) {
             this.mover.revertY();
           }
-          if(trueCollisionCheck(this.mover.run_x + 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || trueCollisionCheck(this.mover.run_x + 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
             this.mover.revertY();
           }
-          if(trueCollisionCheck(this.mover.run_x - 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || trueCollisionCheck(this.mover.run_x - 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
             this.mover.revertY();
           }
 
-        } else if(maze[y][x] === 2) {
+        } else if(this.maze[y][x] === 2) {
           this.ctx.fillStyle = "green";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25)
+          this.ctx.fillRect(x * 25, y * 25, 25, 25);
 
 
-        } else if(maze[y][x] === 3) {
-          ctx.fillStyle = "white";
-          ctx.fillRect(x * 25, y * 25, 25, 25)
-        } else if(maze[y][x] === 4) {
-          ctx.fillStyle = "red";
-          ctx.fillRect(x * 25, y * 25, 25, 25)
+        } else if(this.maze[y][x] === 3) {
+          this.ctx.fillStyle = "white";
+          this.ctx.fillRect(x * 25, y * 25, 25, 25);
+        } else if(this.maze[y][x] === 4) {
+          this.ctx.fillStyle = "red";
+          this.ctx.fillRect(x * 25, y * 25, 25, 25);
 
-          if(trueCollisionCheck(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
+          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
 
             if(this.gameOver === false) {
               nextLevel();
@@ -593,6 +600,17 @@ class Mover {
       down: false
     };
   }
+
+    start() {
+      this.ctx.fillStyle = "blue";
+      this.ctx.beginPath();
+      this.ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true);
+      this.ctx.moveTo(110, 110);
+      this.ctx.stroke();
+      this.ctx.fill();
+      this.updateMover();
+      this.ctx.closePath();
+    }
 
     revertAll() {
         this.run_y = this.last_y;
@@ -702,6 +720,79 @@ class Mover {
 // });
 
 /* harmony default export */ __webpack_exports__["a"] = (Mover);
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return clearTime; });
+let clearTime;
+
+const countDown = (duration) => {
+  let color = "white"
+  if(duration < 0) {
+    document.getElementById('timer').innerHTML = "Times up!";
+      clearTimeout(clearTime);
+      clearTimeout(stopSpin);
+    resetGame();
+  } else {
+  let minutes = Math.floor(duration / 60);
+  let seconds = duration % 60;
+    clearTime = setTimeout( () => {
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    if(seconds <= 10){
+      color = "red"
+    }
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    duration--;
+    countDown(duration);
+    document.getElementById('timer').innerHTML =minutes + ":" + seconds;
+    $("#timer").css({"color": color});
+
+  }, 1000);
+}
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = countDown;
+
+
+
+/***/ }),
+/* 7 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+const verticalCollisionCheck = (mover_y, tile_y, tile_height) => {
+  if(mover_y  > tile_y && mover_y < tile_y + tile_height){
+    return true;
+  }
+  if(mover_y  > tile_y && mover_y < tile_y + tile_height){
+    return true;
+  }
+
+};
+
+
+const horizontalCollisionCheck = (mover_x, tile_x, tile_width) => {
+  if(mover_x  > tile_x && mover_x  < tile_x + tile_width) {
+    return true;
+  }
+  if(mover_x  > tile_x && mover_x  < tile_x + tile_width) {
+    return true;
+  }
+};
+
+const trueCollisionCheck = (mover_x, mover_y, tile_y, tile_x, tile_width) => {
+  if(horizontalCollisionCheck(mover_x, tile_x, tile_width) &&
+    verticalCollisionCheck(mover_y, tile_y, tile_width)) {
+    return true;
+  }
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = trueCollisionCheck;
+
 
 
 /***/ })
