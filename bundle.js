@@ -743,6 +743,8 @@ class Mover {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return clearTime; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reset_game_js__ = __webpack_require__(11);
+
 
 
 let clearTime;
@@ -753,7 +755,7 @@ const countDown = (duration) => {
     document.getElementById('timer').innerHTML = "Times up!";
       clearTimeout(clearTime);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
-    resetGame();
+    Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])();
   } else {
   let minutes = Math.floor(duration / 60);
   let seconds = duration % 60;
@@ -1411,6 +1413,39 @@ const level3 = (timer) => {
     })
 }
 /* harmony export (immutable) */ __webpack_exports__["a"] = level3;
+
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level1__ = __webpack_require__(3);
+
+
+
+
+const resetGame = () => {
+  $(document).off("keydown")
+  $("#gameOverScreen").show();
+  document.addEventListener("keypress", (e) => {
+  if(e.keyCode === 32) {
+    $("#you-win-screen").hide();
+    $("#opening-screen").hide();
+    $("#gameOverScreen").hide();
+    $("#level2").hide();
+    $("#canvas").hide();
+    $("#level3").hide();
+    $("#level1").show();
+    let item = document.getElementById("level1");
+    item.style.transform = `rotate(0deg)`;
+    Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
+    Object(__WEBPACK_IMPORTED_MODULE_1__levels_level1__["a" /* startGame */])(30);
+  }}, {once: true});
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = resetGame;
 
 
 
