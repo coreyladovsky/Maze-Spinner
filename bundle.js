@@ -80,11 +80,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-function spaceBar(e) {
+const spaceBar = (e) => {
   if(e.keyCode === 32) {
     Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])("#level1", __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__["a" /* level1 */], 30);
   }
-}
+};
+/* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
+
 
 $("#gameOverScreen").hide();
 $("#you-win-screen").hide();
@@ -255,6 +257,8 @@ const level1 = (timer)  => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collision__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__next_level_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__winner_screen_js__ = __webpack_require__(14);
+
 
 
 
@@ -510,12 +514,14 @@ class Mover {
 let clearTime;
 
 const countDown = (duration) => {
-  let color = "white"
+  let color = "white";
+  let lose = false;
   if(duration < 0) {
     document.getElementById('timer').innerHTML = "Times up!";
       clearTimeout(clearTime);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
-    Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])();
+      lose = true; 
+    Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(lose);
   } else {
   let minutes = Math.floor(duration / 60);
   let seconds = duration % 60;
@@ -661,11 +667,17 @@ const level2 = (timer) => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reset_game_js__ = __webpack_require__(11);
+
 
 
 
 
     const nextLevel = (showLevel, nextLevelFn, duration) => {
+      if (nextLevelFn === __WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */]) {
+        Object(__WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */])();
+        return; 
+      }
       clearTimeout(__WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__["a" /* clearTime */]);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
       $("#timer").css({"color": "white"});
@@ -782,27 +794,43 @@ const level3 = (timer) => {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level1__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mover_movement_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__starting_the_game_js__ = __webpack_require__(0);
 
 
 
 
-const resetGame = () => {
-  $(document).off("keydown")
-  $("#gameOverScreen").show();
-  document.addEventListener("keypress", (e) => {
-  if(e.keyCode === 32) {
-    $("#you-win-screen").hide();
-    $("#opening-screen").hide();
-    $("#gameOverScreen").hide();
-    $("#level2").hide();
-    $("#canvas").hide();
-    $("#level3").hide();
-    $("#level1").show();
-    let item = document.getElementById("level1");
-    item.style.transform = `rotate(0deg)`;
-    Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
-    Object(__WEBPACK_IMPORTED_MODULE_1__levels_level1__["startGame"])(30);
-  }}, {once: true});
+
+
+
+
+
+const resetGame = (status) => {
+  if(!status) {
+    $("#you-win-screen").show();
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
+  } else {
+    $(document).off("keydown", __WEBPACK_IMPORTED_MODULE_3__mover_movement_js__["a" /* keydownListner */]);
+    $("#gameOverScreen").show();
+  }
+
+  document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_4__starting_the_game_js__["spaceBar"], {once: true});
+  // document.addEventListener("keypress", (e) => {
+  // if(e.keyCode === 32) {
+  //   $("#you-win-screen").hide();
+  //   $("#opening-screen").hide();
+  //   $("#gameOverScreen").hide();
+  //   $("#level2").hide();
+  //   $("#level5").hide();
+  //   $("#level3").hide();
+  //   $("#level1").show();
+  //   let item = document.getElementById("level1");
+  //   item.style.transform = `rotate(0deg)`;
+  //   keepSpinning([-2, -1, 1, 2], 0, item);
+  //   level1(30);
+  // }}, {once: true});
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = resetGame;
 
@@ -878,26 +906,27 @@ const keyupListner = (mover, e) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_game_js__ = __webpack_require__(11);
+
+
+
+
+
+
+
 const level5 = (timer) =>  {
-  countDown(timer);
+  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
   let cancelFrame;
-    let gameOver = false;
-    let canvas = document.getElementById('canvas');
-    let ctx = canvas.getContext("2d");
-    let draw_reset = () => {
-      ctx.fillStyle = "white";
-      ctx.font = "30px Arial";
-      ctx.fillText("N",330,25);
-      ctx.beginPath();
-      ctx.arc(350, 350, 320, 0, Math.PI * 2, true);
-      ctx.moveTo(110, 110);
-      ctx.fillStyle = "yellow";
-      ctx.stroke();
-      ctx.fill();
-      ctx.closePath();
+  let gameOver = false;
+  let canvas = document.getElementById('level5');
+  let ctx = canvas.getContext("2d");
 
-
-      let maze = [
+  let maze = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -928,227 +957,52 @@ const level5 = (timer) =>  {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      ]
-      for(let y = 0; y < maze.length; y++) {
-        for(let x = 0; x < maze[y].length; x++) {
-          let tile = maze[y][x];
-          if(maze[y][x] === 1) {
-            ctx.fillStyle = "black";
-            ctx.fillRect(x * 25, y * 25, 25, 25);
+      ];
 
-            if(trueCollisionCheck(mover.run_x + 7, mover.run_y, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y, y * 25, x * 25, 25)) {
-              mover.revertX();
-            }
-            if(trueCollisionCheck(mover.run_x + 7, mover.run_y - 3.5, y  * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y - 3.5, y * 25, x * 25, 25)) {
-              mover.revertX();
-            }
-            if(trueCollisionCheck(mover.run_x + 7, mover.run_y + 3.5, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 7, mover.run_y + 3.5, y * 25, x * 25, 25)) {
-              mover.revertX();
-            }
-            if(trueCollisionCheck(mover.run_x, mover.run_y + 7, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x, mover.run_y - 7, y * 25, x * 25, 25)) {
-              mover.revertY();
-            }
-            if(trueCollisionCheck(mover.run_x + 3.6, mover.run_y + 7, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x + 3.6, mover.run_y - 7, y * 25, x * 25, 25)) {
-              mover.revertY();
-            }
-            if(trueCollisionCheck(mover.run_x - 3.6, mover.run_y + 7, y * 25, x * 25, 25) || trueCollisionCheck(mover.run_x - 3.6, mover.run_y - 7, y * 25, x * 25, 25)) {
-              mover.revertY();
-            }
+      let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
 
-          } else if(maze[y][x] === 2) {
-            ctx.fillStyle = "green";
-            ctx.fillRect(x * 25, y * 25, 25, 25)
+      let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level5", __WEBPACK_IMPORTED_MODULE_5__reset_game_js__["a" /* resetGame */], 40);
 
-
-          } else if(maze[y][x] === 3) {
-            ctx.fillStyle = "white";
-            ctx.fillRect(x * 25, y * 25, 25, 25)
-          } else if(maze[y][x] === 4) {
-            ctx.fillStyle = "red";
-            ctx.fillRect(x * 25, y * 25, 25, 25)
-
-            if(trueCollisionCheck(mover.run_x, mover.run_y - 7, y * 25, x * 25, 25)) {
-
-              if(gameOver === false) {
-                restartGame();
-              }
-               gameOver = true ;
-
-
-            }
-          }
-        }
+      function step() {
+        ctx.clearRect(0,0, 700, 700);
+        gamedrawing.draw_reset();
+        mover.start();
+        cancelFrame = requestAnimationFrame(step);
       }
-    };
 
-    function restartGame() {
+      step();
 
-
-      $("#you-win-screen").show();
-      clearTimeout(clearTime);
-      clearTimeout(stopSpin);
-    //   $(document).on("keypress", (event) => {
-    //   if(event.keyCode === 32) {
-    //     // $("#opening-screen").hide();
-    //     // $("#gameOverScreen").hide();
-    //     // $("#level2").hide();
-    //     // $("#canvas").hide();
-    //     // $("#level3").hide();
-    //     // $("#level1").show();
-    //     window.location.reload();
-    //   }}, {once: true});
-    resetGame();
-    }
-
-
-    let mover = {
-      run_x: 82,
-      run_y: 337,
-      last_x: 82,
-      last_y: 337,
-      right_side: this.run_x + 7,
-      left_side: this.run_x - 7,
-      top_side: this.run_y - 7,
-      bottom_side: this.run_y + 7,
-
-      ctx,
-      start: function() {
-
-        this.ctx.fillStyle = "blue";
-        ctx.beginPath();
-        ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
-        ctx.moveTo(110, 110);
-        ctx.stroke();
-        ctx.fill()
-        this.updateMover()
-        ctx.closePath();
-
-      },
-      revertAll: function() {
-          this.run_y = this.last_y
-          this.run_x = this.last_x;
-          this.ctx.fillStyle = "blue";
-          ctx.beginPath();
-          ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
-          ctx.moveTo(110, 110);
-          ctx.stroke();
-          ctx.fill();
-          ctx.closePath();
-        },
-      revertX: function() {
-          this.run_x = this.last_x;
-          this.ctx.fillStyle = "blue";
-          ctx.beginPath();
-          ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
-          ctx.moveTo(110, 110);
-          ctx.stroke();
-          ctx.fill();
-          ctx.closePath();
-        },
-
-      revertY: function() {
-          this.run_y = this.last_y;
-          this.ctx.fillStyle = "blue";
-          ctx.beginPath();
-          ctx.arc(this.run_x, this.run_y, 7, 0, Math.PI * 2, true)
-          ctx.moveTo(110, 110);
-          ctx.stroke();
-          ctx.fill();
-          ctx.closePath();
-        },
-
-        movement: {
-          left: false,
-          right: false,
-          up: false,
-          down: false
-        },
-
-
-        updateMover: function() {
-          this.last_y = this.run_y
-          this.last_x = this.run_x
-          if(this.movement.up) {
-            this.run_y -= 3
-            this.velocity_y = -3
-          }
-          if(this.movement.down) {
-            this.run_y += 3
-            this.velocity_y = 3
-          }
-          if(this.movement.right) {
-            this.run_x += 3
-            this.velocity_x = 3
-          }
-          if(this.movement.left) {
-            this.run_x -= 3
-            this.velocity_x = -3
-          }
-        }
-    }
-
-    function step() {
-      ctx.clearRect(0,0, 700, 700)
-      draw_reset()
-      mover.start()
-      cancelFrame = requestAnimationFrame(step)
-    }
-
-    $(document).on("keydown", (e) => {
-      switch (e.key) {
-        case "ArrowUp":
-        case "w":
-          mover.movement.down = false
-          mover.movement.up = true
-          break;
-        case "ArrowDown":
-        case "s":
-          mover.movement.up = false
-          mover.movement.down = true
-          break;
-        case "ArrowRight":
-        case "d":
-          mover.movement.left = false
-          mover.movement.right = true
-          break;
-        case "ArrowLeft":
-        case "a":
-          mover.movement.right = false
-          mover.movement.left = true
-          break;
-        default:
-        console.log("Please keep your eyes and attention on the game!");
-        console.log("https://github.com/coreyladovsky");
-      }
-    })
-    step()
+      $(document).on("keydown", (e) => {Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(mover, e);});
+      $(document).on("keyup", (e) => {Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(mover, e);});
 
 
 
-    $(document).on("keyup", (e) => {
-      switch (e.key) {
-        case "ArrowUp":
-        case "w":
-        mover.movement.up = false
-          break;
-        case "ArrowDown":
-        case "s":
-        mover.movement.down = false
-        break;
-        case "ArrowRight":
-        case "d":
-        mover.movement.right = false
-        break;
-        case "ArrowLeft":
-        case "a":
-        mover.movement.left = false
-          break;
-        default:
-        console.log("Please keep your eyes and attention on the game!");
-      }
-    })
-}
+
+};
 /* harmony export (immutable) */ __webpack_exports__["a"] = level5;
+
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__reset_game_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spin_motion_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(6);
+
+
+
+
+
+const restartGame = () => {
+  $("#you-win-screen").show();
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["b" /* stopSpin */]);
+  Object(__WEBPACK_IMPORTED_MODULE_0__reset_game_js__["a" /* resetGame */])();
+};
+/* unused harmony export restartGame */
 
 
 
