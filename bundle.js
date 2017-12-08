@@ -82,7 +82,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 const spaceBar = (e) => {
   if(e.keyCode === 32) {
-    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])("#level1", __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__["a" /* level1 */], 30);
+    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])("#level1", __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__["b" /* level1 */], 30);
   }
 };
 /* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
@@ -176,6 +176,7 @@ function rotation(angle, counter, degrees, el){
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cancelFrame; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(6);
@@ -189,10 +190,12 @@ function rotation(angle, counter, degrees, el){
 
 
 
+let cancelFrame;
+
 const level1 = (timer)  => {
   let nextLevel;
    Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
-  let cancelFrame;
+  // let cancelFrame;
   let gameOver = false;
   let canvas = document.getElementById('level1');
   let ctx = canvas.getContext("2d");
@@ -242,11 +245,11 @@ const level1 = (timer)  => {
 
     step();
 
-    $(document).on("keydown", (e) => {Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover, e);});
-    $(document).on("keyup", (e) => {Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover, e);});
+    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
+    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
 
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = level1;
+/* harmony export (immutable) */ __webpack_exports__["b"] = level1;
 
 
 
@@ -437,64 +440,6 @@ class Mover {
       }
     }
 
-
-//     render() {
-//
-//
-//
-// $(document).on("keydown", (e) => {
-//   switch (e.key) {
-//     case "ArrowUp":
-//     case "w":
-//       this.movement.down = false;
-//       this.movement.up = true;
-//       break;
-//     case "ArrowDown":
-//     case "s":
-//       this.movement.up = false;
-//       this.movement.down = true;
-//       break;
-//     case "ArrowRight":
-//     case "d":
-//       this.movement.left = false;
-//       this.movement.right = true;
-//       break;
-//     case "ArrowLeft":
-//     case "a":
-//       this.movement.right = false;
-//       this.movement.left = true;
-//       break;
-//     default:
-//     console.log("Please keep your eyes and attention on the game!");
-//     console.log("https://github.com/coreyladovsky");
-//   }
-// });
-//
-//
-// $(document).on("keyup", (e) => {
-//   switch (e.key) {
-//     case "ArrowUp":
-//     case "w":
-//     this.movement.up = false;
-//       break;
-//     case "ArrowDown":
-//     case "s":
-//     this.movement.down = false;
-//     break;
-//     case "ArrowRight":
-//     case "d":
-//     this.movement.right = false;
-//     break;
-//     case "ArrowLeft":
-//     case "a":
-//     this.movement.left = false;
-//       break;
-//     default:
-//     console.log("Please keep your eyes and attention on the game!");
-//   }
-// });
-//
-// }
  }
 
 /* harmony default export */ __webpack_exports__["a"] = (Mover);
@@ -508,6 +453,8 @@ class Mover {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return clearTime; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reset_game_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_level1_js__ = __webpack_require__(3);
+
 
 
 
@@ -520,7 +467,8 @@ const countDown = (duration) => {
     document.getElementById('timer').innerHTML = "Times up!";
       clearTimeout(clearTime);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
-      lose = true; 
+      cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_level1_js__["a" /* cancelFrame */]);
+      lose = true;
     Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(lose);
   } else {
   let minutes = Math.floor(duration / 60);
@@ -528,12 +476,12 @@ const countDown = (duration) => {
     clearTime = setTimeout( () => {
     minutes = minutes < 10 ? "0" + minutes : minutes;
     if(seconds <= 10){
-      color = "red"
+      color = "red";
     }
     seconds = seconds < 10 ? "0" + seconds : seconds;
     duration--;
     countDown(duration);
-    document.getElementById('timer').innerHTML =minutes + ":" + seconds;
+    document.getElementById('timer').innerHTML = minutes + ":" + seconds;
     $("#timer").css({"color": color});
 
   }, 1000);
@@ -651,10 +599,8 @@ const level2 = (timer) => {
     }
 
     step();
-
-    $(document).on("keydown", (e) => {Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover, e);});
-    $(document).on("keyup", (e) => {Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover, e);});
-
+    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
+    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = level2;
 
@@ -676,7 +622,7 @@ const level2 = (timer) => {
     const nextLevel = (showLevel, nextLevelFn, duration) => {
       if (nextLevelFn === __WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */]) {
         Object(__WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */])();
-        return; 
+        return;
       }
       clearTimeout(__WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__["a" /* clearTime */]);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
@@ -812,25 +758,14 @@ const resetGame = (status) => {
     clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
     clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
   } else {
-    $(document).off("keydown", __WEBPACK_IMPORTED_MODULE_3__mover_movement_js__["a" /* keydownListner */]);
+    $(document).off("keydown");
+    $(document).off("keyup");
     $("#gameOverScreen").show();
   }
 
+
   document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_4__starting_the_game_js__["spaceBar"], {once: true});
-  // document.addEventListener("keypress", (e) => {
-  // if(e.keyCode === 32) {
-  //   $("#you-win-screen").hide();
-  //   $("#opening-screen").hide();
-  //   $("#gameOverScreen").hide();
-  //   $("#level2").hide();
-  //   $("#level5").hide();
-  //   $("#level3").hide();
-  //   $("#level1").show();
-  //   let item = document.getElementById("level1");
-  //   item.style.transform = `rotate(0deg)`;
-  //   keepSpinning([-2, -1, 1, 2], 0, item);
-  //   level1(30);
-  // }}, {once: true});
+
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = resetGame;
 
@@ -843,7 +778,7 @@ const resetGame = (status) => {
 "use strict";
 
 
-const keydownListner = (mover, e) => {
+const keydownListner = (mover) => (e) => {
  switch (e.key) {
    case "ArrowUp":
    case "w":
@@ -875,7 +810,7 @@ const keydownListner = (mover, e) => {
 
 
 
-const keyupListner = (mover, e) => {
+const keyupListner = (mover) => (e) => {
   switch (e.key) {
     case "ArrowUp":
     case "w":
