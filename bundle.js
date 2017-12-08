@@ -723,8 +723,8 @@ const level3 = (timer) => {
 
   step();
 
-  $(document).on("keydown", (e) => {Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover, e);});
-  $(document).on("keyup", (e) => {Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover, e);});
+  $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
+  $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
 
 
 
@@ -907,8 +907,8 @@ const level5 = (timer) =>  {
 
       step();
 
-      $(document).on("keydown", (e) => {Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(mover, e);});
-      $(document).on("keyup", (e) => {Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(mover, e);});
+      $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(mover));
+      $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(mover));
 
 
 
