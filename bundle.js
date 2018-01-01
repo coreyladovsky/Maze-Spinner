@@ -385,14 +385,14 @@ document.addEventListener("keypress", spaceBar, {once: true});
 
 
 
- 
+
 
 
 let cancelFrame;
 
 
 const game = ( levelNumber, timer=40)  => {
-  levelNumber += 1;
+
   let nextLevel;
    Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
   // let cancelFrame;
@@ -413,7 +413,7 @@ const game = ( levelNumber, timer=40)  => {
 
     $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(mover));
     $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(mover));
-
+    levelNumber += 1;
 };
 /* harmony export (immutable) */ __webpack_exports__["b"] = game;
 
@@ -440,7 +440,7 @@ class GameDrawing {
     this.ctx = ctx;
     this.mover = mover;
     this.gameOver = false;
-    this.nextMaze = __WEBPACK_IMPORTED_MODULE_3__levelArray_js__["a" /* levelArray */][levelNumber + 1];
+    this.nextMaze = levelNumber + 1;
     this.duration = duration;
   }
 
@@ -497,7 +497,6 @@ class GameDrawing {
           if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
 
             if(this.gameOver === false) {
-              debugger
               Object(__WEBPACK_IMPORTED_MODULE_1__next_level_js__["a" /* nextLevel */])(this.nextMaze, this.duration);
             }
              this.gameOver = true ;
@@ -523,16 +522,16 @@ class GameDrawing {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__levels_level1_js__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__ = __webpack_require__(16);
+
+
+// import { maze3 } from './levels/level3.js';
+// import { maze5 } from './levels/level5.js';
 
 
 
-
-
-const levelArray = [__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */], __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */]];
+const levelArray = [__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */]];
 /* harmony export (immutable) */ __webpack_exports__["a"] = levelArray;
- 
+
 
 
 /***/ }),
@@ -768,129 +767,6 @@ const restartGame = () => {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       ];
 /* harmony export (immutable) */ __webpack_exports__["a"] = maze2;
-
-
-
-/***/ }),
-/* 15 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-const maze3 = [
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0],
-        [0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,0,0,0,0],
-        [0,0,0,0,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,1,3,1,1,1,1,1,1,1,1,1,1,1,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,1,3,1,3,3,3,3,3,3,3,3,3,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,1,3,1,3,1,1,1,1,1,1,1,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,1,1,1,3,1,3,1,3,1,3,3,3,3,3,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,1,2,2,3,1,3,1,3,1,3,1,1,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,1,1,1,1,1,3,1,3,1,3,1,4,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,1,3,1,4,3,3,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,1,3,1,1,1,1,1,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,1,3,3,3,3,3,3,3,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,1,1,1,1,1,1,1,1,1,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,3,3,3,3,3,3,3,3,3,3,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,0,0,0,0],
-        [0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      ];
-/* harmony export (immutable) */ __webpack_exports__["a"] = maze3;
-
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_game_js__ = __webpack_require__(2);
-
-
-
-
-
-
-
-const maze5 = (timer) =>  {
-  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
-  let cancelFrame;
-  let gameOver = false;
-  let canvas = document.getElementById('level5');
-  let ctx = canvas.getContext("2d");
-
-  let maze = [
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,1,1,1,1,1,3,3,3,3,1,1,1,1,1,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,1,3,3,3,1,3,1,1,3,1,3,3,3,1,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,1,3,1,3,1,3,1,3,3,1,3,1,3,1,0,0,0,0,0,0,0,0],
-        [0,0,0,1,1,1,1,3,1,3,1,3,1,3,1,3,3,1,3,1,0,0,0,0,0,0,0,0],
-        [0,0,0,1,3,3,3,3,1,3,1,3,1,3,1,3,1,1,3,1,1,1,1,1,0,0,0,0],
-        [0,0,0,1,3,1,1,1,1,3,3,3,1,3,3,3,1,3,3,1,3,3,3,1,0,0,0,0],
-        [0,0,0,1,3,3,3,3,1,1,1,1,1,1,1,1,1,3,1,3,3,1,3,1,0,0,0,0],
-        [0,0,1,1,1,1,1,3,1,3,3,3,3,3,3,3,3,3,1,3,1,1,3,1,0,0,0,0],
-        [0,0,1,2,2,3,1,3,1,3,1,1,1,1,1,1,1,1,1,3,3,1,3,1,0,0,0,0],
-        [0,0,1,1,1,3,1,3,1,3,1,3,3,3,3,1,3,3,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,1,3,1,3,3,3,1,1,3,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,3,3,3,1,1,1,1,1,3,3,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,1,1,1,1,1,3,3,3,3,3,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,1,3,3,3,3,1,1,1,1,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
-        [0,0,0,0,0,1,3,1,1,1,1,1,3,3,3,1,3,1,3,1,3,1,4,1,0,0,0,0],
-        [0,0,0,0,0,1,3,1,3,3,3,1,3,1,3,1,3,1,3,1,3,1,4,1,0,0,0,0],
-        [0,0,0,0,0,1,3,3,3,1,3,1,3,1,3,1,3,1,3,1,3,1,1,1,0,0,0,0],
-        [0,0,0,0,0,1,1,1,1,1,3,1,3,1,3,1,3,1,3,3,3,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,1,3,3,3,1,3,3,3,1,1,1,1,1,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-      ];
-
-      let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-
-      let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level5", __WEBPACK_IMPORTED_MODULE_5__reset_game_js__["a" /* resetGame */], 40);
-
-      function step() {
-        ctx.clearRect(0,0, 700, 700);
-        gamedrawing.draw_reset();
-        mover.start();
-        cancelFrame = requestAnimationFrame(step);
-      }
-
-      step();
-
-      $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(mover));
-      $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(mover));
-
-
-
-
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = maze5;
 
 
 
