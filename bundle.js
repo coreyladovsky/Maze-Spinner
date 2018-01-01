@@ -123,7 +123,7 @@ const countDown = (duration) => {
     document.getElementById('timer').innerHTML = "Times up!";
       clearTimeout(clearTime);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
-      cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_level1_js__["a" /* cancelFrame */]);
+      cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_level1_js__["cancelFrame"]);
       lose = true;
     Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(lose);
   } else {
@@ -447,31 +447,8 @@ class Mover {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cancelFrame; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__level2__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mover_movement_js__ = __webpack_require__(2);
 
-
-
-
-
-
-
-let cancelFrame;
-
-const level1 = (timer)  => {
-  let nextLevel;
-   Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
-  // let cancelFrame;
-  let gameOver = false;
-  let canvas = document.getElementById('level1');
-  let ctx = canvas.getContext("2d");
-
-  let maze = [
+  const maze1 = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -503,24 +480,7 @@ const level1 = (timer)  => {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       ];
-
-    let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-    let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level2", __WEBPACK_IMPORTED_MODULE_4__level2__["a" /* level2 */], 30);
-
-    function step() {
-      ctx.clearRect(0,0, 700, 700);
-      gamedrawing.draw_reset();
-      mover.start();
-      cancelFrame = requestAnimationFrame(step);
-    }
-
-    step();
-
-    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
-    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
-
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = level1;
+/* unused harmony export maze1 */
 
 
 
@@ -533,17 +493,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__opening_spin_js__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__next_level_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_game_js__ = __webpack_require__(15);
 
 
 
-
+// import { level1 } from './levels/level1.js';
 
 
 
 const spaceBar = (e) => {
   if(e.keyCode === 32) {
-    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])("#level1", __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__["b" /* level1 */], 30);
+    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])("#level1", level1, 30);
   }
 };
 /* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
@@ -585,13 +545,13 @@ document.addEventListener("keypress", spaceBar, {once: true});
       $("#opening-screen").hide();
       $("#you-win-screen").hide();
       $("#gameOverScreen").hide();
-      $("#level1").hide();
-      $("#level2").hide();
-      $("#level3").hide();
-      $("#level5").hide();
+      // $("#level1").hide();
+      // $("#level2").hide();
+      // $("#level3").hide();
+      // $("#level5").hide();
 
 
-      $(showLevel).show();
+      $("#game").show();
 
       let item = document.getElementById(showLevel.slice(1));
       item.style.transform = `rotate(0deg)`;
@@ -938,6 +898,55 @@ const level5 = (timer) =>  {
 
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = level5;
+
+
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export cancelFrame */
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__level2__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mover_movement_js__ = __webpack_require__(2);
+
+
+
+
+
+
+
+
+let cancelFrame;
+
+const game = (maze, timer=40)  => {
+  let nextLevel;
+   Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
+  // let cancelFrame;
+  let gameOver = false;
+  let canvas = document.getElementById('game');
+  let ctx = canvas.getContext("2d");
+    let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
+    let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level2", __WEBPACK_IMPORTED_MODULE_4__level2__["a" /* level2 */], 30);
+
+    function step() {
+      ctx.clearRect(0,0, 700, 700);
+      gamedrawing.draw_reset();
+      mover.start();
+      cancelFrame = requestAnimationFrame(step);
+    }
+
+    step();
+
+    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
+    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
+
+};
+/* unused harmony export game */
 
 
 
