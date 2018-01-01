@@ -480,7 +480,7 @@ class Mover {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       ];
-/* unused harmony export maze1 */
+/* harmony export (immutable) */ __webpack_exports__["b"] = maze1;
 
 
 
@@ -493,17 +493,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__opening_spin_js__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__next_level_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_game_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__levels_game_js__ = __webpack_require__(15);
 
 
 
-// import { level1 } from './levels/level1.js';
+
 
 
 
 const spaceBar = (e) => {
   if(e.keyCode === 32) {
-    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])("#level1", level1, 30);
+    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])(__WEBPACK_IMPORTED_MODULE_3__levels_level1_js__["b" /* maze1 */], 30);
   }
 };
 /* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
@@ -526,13 +527,15 @@ document.addEventListener("keypress", spaceBar, {once: true});
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reset_game_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_game_js__ = __webpack_require__(15);
 
 
 
 
 
-    const nextLevel = (showLevel, nextLevelFn, duration) => {
-      if (nextLevelFn === __WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */]) {
+
+    const nextLevel = (mazeOrReset, duration) => {
+      if (mazeOrReset === __WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */]) {
         Object(__WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */])();
         return;
       }
@@ -545,18 +548,12 @@ document.addEventListener("keypress", spaceBar, {once: true});
       $("#opening-screen").hide();
       $("#you-win-screen").hide();
       $("#gameOverScreen").hide();
-      // $("#level1").hide();
-      // $("#level2").hide();
-      // $("#level3").hide();
-      // $("#level5").hide();
-
-
       $("#game").show();
 
-      let item = document.getElementById(showLevel.slice(1));
+      let item = document.getElementById("game");
       item.style.transform = `rotate(0deg)`;
       Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
-      nextLevelFn(duration);
+      Object(__WEBPACK_IMPORTED_MODULE_3__levels_game_js__["a" /* game */])(mazeOrReset, duration);
     };
 /* harmony export (immutable) */ __webpack_exports__["a"] = nextLevel;
 
@@ -946,7 +943,7 @@ const game = (maze, timer=40)  => {
     $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
 
 };
-/* unused harmony export game */
+/* harmony export (immutable) */ __webpack_exports__["a"] = game;
 
 
 
