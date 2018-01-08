@@ -206,14 +206,20 @@ const resetGame = (status) => {
 
 
 let cancelFrame;
+let gamedrawing;
+let mover;
 
-const game = (timer=40)  => {
-  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
+const game = (duration=40)  => {
+  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(duration);
   let gameOver = false;
   let canvas = document.getElementById('game');
   let ctx = canvas.getContext("2d");
-  let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-  let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](ctx, mover,  30);
+
+  if (typeof mover !== 'undefined' || typeof gamedrawing !== 'undefined') {
+     cancelAnimationFrame(cancelFrame);
+  }
+  mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
+  gamedrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](ctx, mover,  30);
 
   function step() {
     ctx.clearRect(0,0, 700, 700);
@@ -495,11 +501,9 @@ class GameDrawing {
     this.gameOver = false;
     this.nextMaze = levelNumber + 1;
     this.duration = duration;
-
   }
 
   draw_reset() {
-    console.log(levelNumber);
     this.ctx.fillStyle = "white";
     this.ctx.font = "30px Arial";
     this.ctx.fillText("N",330,25);
@@ -552,7 +556,7 @@ class GameDrawing {
           if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
 
             if(this.gameOver === false) {
-              levelNumber += 1
+              levelNumber += 1;
               Object(__WEBPACK_IMPORTED_MODULE_1__next_level_js__["a" /* nextLevel */])(this.duration);
             }
              this.gameOver = true ;
