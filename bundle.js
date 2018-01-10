@@ -214,6 +214,7 @@ class Game {
     this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
     this.gameOver = false;
     this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
+    this.step = this.step.bind(this);
   }
 
   step() {
@@ -303,7 +304,9 @@ window.levelNumber = 0;
 const spaceBar = (e) => {
   if(e.keyCode === 32) {
     let newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
-    newGame.play(); 
+    newGame.play();
+    $("#opening-screen").hide();
+    $("#game").show();
   }
 };
 /* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
@@ -544,13 +547,14 @@ function rotation(angle, counter, degrees, el){
 // import { levelNumber } from './starting_the_game.js';
 
 class GameDrawing {
-  constructor(ctx, mover, duration) {
+  constructor(ctx, mover, duration=25) {
     this.maze = __WEBPACK_IMPORTED_MODULE_3__levelArray_js__["a" /* levelArray */][levelNumber];
     this.ctx = ctx;
     this.mover = mover;
     this.gameOver = false;
     this.nextMaze = levelNumber + 1;
     this.duration = duration;
+    this.draw_reset = this.draw_reset.bind(this);
   }
 
   draw_reset() {
@@ -562,6 +566,7 @@ class GameDrawing {
     this.ctx.moveTo(110, 110);
     this.ctx.fillStyle = "yellow";
     this.ctx.stroke();
+    console.log(this.ctx);
     this.ctx.fill();
     this.ctx.closePath();
 
