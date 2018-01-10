@@ -208,8 +208,9 @@ const resetGame = (status) => {
 class Game {
   constructor() {
     this.cancelFrame;
-    this.levelNumber = 0;
-    this.ctx = document.getElementById("game").getContext("2d");
+    // this.levelNumber = 0;
+    this.game = document.getElementById("game");
+    this.ctx = this.game.getContext("2d");
     this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
     this.gameOver = false;
     this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
@@ -226,12 +227,14 @@ class Game {
     cancelAnimationFrame(this.cancelFrame);
   }
 
-  render() {
+  play() {
     this.step();
     $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(this.mover));
     $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(this.mover));
   }
 }
+
+/* harmony default export */ __webpack_exports__["b"] = (Game);
 // export let cancelFrame;
 // window.cancelFrame = 0
 // let gamedrawing;
@@ -295,13 +298,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-
- window.levelNumber = 0;
+window.levelNumber = 0;
 
 const spaceBar = (e) => {
   if(e.keyCode === 32) {
-    levelNumber =  0;
-    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])(40);
+    let newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
+    newGame.play(); 
   }
 };
 /* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
