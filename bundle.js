@@ -130,7 +130,7 @@ class CountDown {
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
       cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_game_js__["cancelFrame"]);
       this.lose = true;
-      Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(this. lose);
+      Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(this.lose);
     } else {
         let minutes = Math.floor(this.duration / 60);
         let seconds = this.duration % 60;
@@ -151,7 +151,7 @@ class CountDown {
 
 }
 
-/* harmony default export */ __webpack_exports__["b"] = (CountDown); 
+/* harmony default export */ __webpack_exports__["b"] = (CountDown);
 
 // export const countDown = (duration) => {
 //   let color = "white";
@@ -251,6 +251,7 @@ class Game {
     this.gameOver = false;
     this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
     this.step = this.step.bind(this);
+    this.currentLevel = 0;
   }
 
   step() {
@@ -258,6 +259,11 @@ class Game {
     this.gameDrawing.draw_reset();
     this.mover.start();
     this.cancelFrame = requestAnimationFrame(this.step);
+    if (this.currentLevel !== levelNumber) {
+      this.currentLevel ++ ;
+      this.nextLevel();
+
+    }
   }
 
   startClock(duration) {
@@ -269,11 +275,33 @@ class Game {
     cancelAnimationFrame(this.cancelFrame);
   }
 
+  nextLevel() {
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* stopSpin */]);
+    this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
+    this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
+    let item = document.getElementById("game");
+    item.style.transform = `rotate(0deg)`;
+    Object(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
+    $("#timer").css({"color": "white"});
+    document.getElementById('timer').innerHTML = "Ready!";
+    this.startClock(25);
+    // $(document).on("keydown", keydownListner(this.mover));
+    // $(document).on("keyup", keyupListner(this.mover));
+    this.move();
+  }
+
+  move() {
+    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(this.mover));
+    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(this.mover));
+  }
+
   play() {
     this.startClock();
     this.step();
-    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(this.mover));
-    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(this.mover));
+    this.move();
+    // $(document).on("keydown", keydownListner(this.mover));
+    // $(document).on("keyup", keyupListner(this.mover));
   }
 }
 
@@ -409,7 +437,7 @@ document.addEventListener("keypress", spaceBar, {once: true});
       // cancelAnimationFrame(cancelFrame - 1);
       Object(__WEBPACK_IMPORTED_MODULE_3__levels_game_js__["game"])(duration);
     };
-/* harmony export (immutable) */ __webpack_exports__["a"] = nextLevel;
+/* unused harmony export nextLevel */
 
 
 
@@ -611,7 +639,6 @@ class GameDrawing {
     this.ctx.moveTo(110, 110);
     this.ctx.fillStyle = "yellow";
     this.ctx.stroke();
-    console.log(this.ctx);
     this.ctx.fill();
     this.ctx.closePath();
 
@@ -656,13 +683,10 @@ class GameDrawing {
           if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
 
             if(this.gameOver === false) {
-              levelNumber += 1;
-              Object(__WEBPACK_IMPORTED_MODULE_1__next_level_js__["a" /* nextLevel */])(this.duration);
+              levelNumber++;
+
             }
              this.gameOver = true ;
-
-
-
 
           }
         }
