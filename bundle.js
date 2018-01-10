@@ -143,7 +143,7 @@ const countDown = (duration) => {
   }, 1000);
 }
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = countDown;
+/* unused harmony export countDown */
 
 
 
@@ -205,54 +205,79 @@ const resetGame = (status) => {
 
 
 
+class Game {
+  constructor() {
+    this.cancelFrame;
+    this.levelNumber = 0;
+    this.ctx = document.getElementById("game").getContext("2d");
+    this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
+    this.gameOver = false;
+    this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
+  }
+
+  step() {
+    this.ctx.clearRect(0,0, 700, 700);
+    this.gameDrawing.draw_reset();
+    this.mover.start();
+    this.cancelFrame = requestAnimationFrame(this.step);
+  }
+
+  stopGame() {
+    cancelAnimationFrame(this.cancelFrame);
+  }
+
+  render() {
+    this.step();
+    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(this.mover));
+    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(this.mover));
+  }
+}
 // export let cancelFrame;
-window.cancelFrame = 0
-let gamedrawing;
-let mover;
+// window.cancelFrame = 0
+// let gamedrawing;
+// let mover;
+//
+// export const game = (duration=40)  => {
+//   countDown(duration);
+  // let gameOver = false;
+  // let canvas = document.getElementById('game');
+  // let ctx = canvas.getContext("2d");
 
-const game = (duration=40)  => {
-  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(duration);
-  let gameOver = false;
-  let canvas = document.getElementById('game');
-  let ctx = canvas.getContext("2d");
+  // cancelAnimationFrame(cancelFrame);
+  // if (typeof mover !== 'undefined' && typeof gamedrawing !== 'undefined') {
+  // }
+  // mover = new Mover(82, 337, ctx);
+  // gamedrawing = new GameDrawing(ctx, mover,  40);
+  //
+  // let tick = 0
 
-  cancelAnimationFrame(cancelFrame);
-  if (typeof mover !== 'undefined' && typeof gamedrawing !== 'undefined') {
-  }
-  mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-  gamedrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](ctx, mover,  40);
+  // function step() {
+  //
+  //   if (tick === 120) {
+  //     // tick = 0;
+  //   }
+  //   tick++
+  //
+  //   ctx.clearRect(0,0, 700, 700);
+  //   gamedrawing.draw_reset();
+  //   mover.start();
+  //   cancelFrame = requestAnimationFrame(step);
+  //   if (tick === 600) {
+  //     // debugger
+  //     cancelAnimationFrame(cancelFrame)
+  //   }
+  //   if(gameOver) {
+  //     cancelAnimationFrame(cancelFrame);
+  //   }
+  // }
 
-  let tick = 0
+  // step();
+  //
+  // $(document).on("keydown", keydownListner(mover));
+  // $(document).on("keyup", keyupListner(mover));
 
-  function step() {
-
-    if (tick === 120) {
-      // tick = 0;
-    }
-    tick++
-
-    ctx.clearRect(0,0, 700, 700);
-    gamedrawing.draw_reset();
-    mover.start();
-    cancelFrame = requestAnimationFrame(step);
-    if (tick === 600) {
-      // debugger
-      cancelAnimationFrame(cancelFrame)
-    }
-    if(gameOver) {
-      cancelAnimationFrame(cancelFrame);
-    }
-  }
-
-  step();
-
-  $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(mover));
-  $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(mover));
-
-
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = game;
-
+//
+// };
 
 
 /***/ }),
@@ -332,7 +357,7 @@ document.addEventListener("keypress", spaceBar, {once: true});
       // cancelAnimationFrame(cancelFrame);
       // cancelAnimationFrame(cancelFrame + 1);
       // cancelAnimationFrame(cancelFrame - 1);
-      Object(__WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* game */])(duration);
+      Object(__WEBPACK_IMPORTED_MODULE_3__levels_game_js__["game"])(duration);
     };
 /* harmony export (immutable) */ __webpack_exports__["a"] = nextLevel;
 
