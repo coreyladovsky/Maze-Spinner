@@ -116,35 +116,70 @@ const  keepSpinning = (array, degrees, el) => {
 
 let clearTime;
 
-const countDown = (duration) => {
-  let color = "white";
-  let lose = false;
-  if(duration < 0) {
-    document.getElementById('timer').innerHTML = "Times up!";
+class CountDown {
+  constructor(duration = 30) {
+    this.duration = duration;
+    this.color = "white";
+    this.lose = false;
+  }
+
+  tick() {
+    if(this.duration < 0) {
+      document.getElementById('timer').innerHTML = "Times up!";
       clearTimeout(clearTime);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
       cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_game_js__["cancelFrame"]);
-      lose = true;
-    Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(lose);
-  } else {
-  let minutes = Math.floor(duration / 60);
-  let seconds = duration % 60;
-    clearTime = setTimeout( () => {
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    if(seconds <= 10){
-      color = "red";
+      this.lose = true;
+      Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(this. lose);
+    } else {
+        let minutes = Math.floor(this.duration / 60);
+        let seconds = this.duration % 60;
+        clearTime = setTimeout( () => {
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        if(seconds <= 10){
+          this.color = "red";
+        }
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        this.duration--;
+        this.tick(this.duration);
+        document.getElementById('timer').innerHTML = minutes + ":" + seconds;
+        $("#timer").css({"color": this.color});
+
+      }, 1000);
     }
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    duration--;
-    countDown(duration);
-    document.getElementById('timer').innerHTML = minutes + ":" + seconds;
-    $("#timer").css({"color": color});
+  }
 
-  }, 1000);
 }
-};
-/* unused harmony export countDown */
 
+/* harmony default export */ __webpack_exports__["b"] = (CountDown); 
+
+// export const countDown = (duration) => {
+//   let color = "white";
+//   let lose = false;
+//   if(duration < 0) {
+//     document.getElementById('timer').innerHTML = "Times up!";
+//       clearTimeout(clearTime);
+//       clearTimeout(stopSpin);
+//       cancelAnimationFrame(cancelFrame);
+//       lose = true;
+//     resetGame(lose);
+//   } else {
+//   let minutes = Math.floor(duration / 60);
+//   let seconds = duration % 60;
+//     clearTime = setTimeout( () => {
+//     minutes = minutes < 10 ? "0" + minutes : minutes;
+//     if(seconds <= 10){
+//       color = "red";
+//     }
+//     seconds = seconds < 10 ? "0" + seconds : seconds;
+//     duration--;
+//     countDown(duration);
+//     document.getElementById('timer').innerHTML = minutes + ":" + seconds;
+//     $("#timer").css({"color": color});
+//
+//   }, 1000);
+// }
+// };
 
 
 /***/ }),
@@ -209,6 +244,7 @@ class Game {
   constructor() {
     this.cancelFrame;
     // this.levelNumber = 0;
+    // this.clock = new CountDown();
     this.game = document.getElementById("game");
     this.ctx = this.game.getContext("2d");
     this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
@@ -224,11 +260,17 @@ class Game {
     this.cancelFrame = requestAnimationFrame(this.step);
   }
 
+  startClock(duration) {
+    let clock = new __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* default */](duration);
+    clock.tick();
+  }
+
   stopGame() {
     cancelAnimationFrame(this.cancelFrame);
   }
 
   play() {
+    this.startClock();
     this.step();
     $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(this.mover));
     $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(this.mover));
@@ -305,6 +347,9 @@ const spaceBar = (e) => {
   if(e.keyCode === 32) {
     let newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
     newGame.play();
+    let item = document.getElementById("game");
+    item.style.transform = `rotate(0deg)`;
+    Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
     $("#opening-screen").hide();
     $("#game").show();
   }
