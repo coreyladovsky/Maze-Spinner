@@ -243,8 +243,6 @@ const resetGame = (status) => {
 class Game {
   constructor() {
     this.cancelFrame;
-    // this.levelNumber = 0;
-    // this.clock = new CountDown();
     this.game = document.getElementById("game");
     this.ctx = this.game.getContext("2d");
     this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
@@ -262,32 +260,41 @@ class Game {
     if (this.currentLevel !== levelNumber) {
       this.currentLevel ++ ;
       this.nextLevel();
-
     }
   }
 
-  startClock(duration) {
+  startClock(duration = 35) {
     let clock = new __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* default */](duration);
     clock.tick();
+  }
+
+  clockReset() {
+    $("#timer").css({"color": "white"});
+    document.getElementById('timer').innerHTML = "Ready!";
+    this.startClock();
   }
 
   stopGame() {
     cancelAnimationFrame(this.cancelFrame);
   }
 
-  nextLevel() {
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* stopSpin */]);
+  newPieces() {
     this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
     this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
+  }
+
+  startSpin() {
     let item = document.getElementById("game");
     item.style.transform = `rotate(0deg)`;
     Object(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
-    $("#timer").css({"color": "white"});
-    document.getElementById('timer').innerHTML = "Ready!";
-    this.startClock(25);
-    // $(document).on("keydown", keydownListner(this.mover));
-    // $(document).on("keyup", keyupListner(this.mover));
+  }
+
+  nextLevel() {
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* stopSpin */]);
+    this.newPieces();
+    this.startSpin();
+    this.clockReset();
     this.move();
   }
 
@@ -300,58 +307,10 @@ class Game {
     this.startClock();
     this.step();
     this.move();
-    // $(document).on("keydown", keydownListner(this.mover));
-    // $(document).on("keyup", keyupListner(this.mover));
   }
 }
 
 /* harmony default export */ __webpack_exports__["b"] = (Game);
-// export let cancelFrame;
-// window.cancelFrame = 0
-// let gamedrawing;
-// let mover;
-//
-// export const game = (duration=40)  => {
-//   countDown(duration);
-  // let gameOver = false;
-  // let canvas = document.getElementById('game');
-  // let ctx = canvas.getContext("2d");
-
-  // cancelAnimationFrame(cancelFrame);
-  // if (typeof mover !== 'undefined' && typeof gamedrawing !== 'undefined') {
-  // }
-  // mover = new Mover(82, 337, ctx);
-  // gamedrawing = new GameDrawing(ctx, mover,  40);
-  //
-  // let tick = 0
-
-  // function step() {
-  //
-  //   if (tick === 120) {
-  //     // tick = 0;
-  //   }
-  //   tick++
-  //
-  //   ctx.clearRect(0,0, 700, 700);
-  //   gamedrawing.draw_reset();
-  //   mover.start();
-  //   cancelFrame = requestAnimationFrame(step);
-  //   if (tick === 600) {
-  //     // debugger
-  //     cancelAnimationFrame(cancelFrame)
-  //   }
-  //   if(gameOver) {
-  //     cancelAnimationFrame(cancelFrame);
-  //   }
-  // }
-
-  // step();
-  //
-  // $(document).on("keydown", keydownListner(mover));
-  // $(document).on("keyup", keyupListner(mover));
-
-//
-// };
 
 
 /***/ }),
