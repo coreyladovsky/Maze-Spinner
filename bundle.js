@@ -121,6 +121,11 @@ class CountDown {
     this.duration = duration;
     this.color = "white";
     this.lose = false;
+    this.clearTime;
+  }
+
+  stop_tick() {
+    clearTimeout(this.clearTime);
   }
 
   tick() {
@@ -134,7 +139,7 @@ class CountDown {
     } else {
         let minutes = Math.floor(this.duration / 60);
         let seconds = this.duration % 60;
-        clearTime = setTimeout( () => {
+        this.clearTime = setTimeout( () => {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         if(seconds <= 10){
           this.color = "red";
@@ -187,14 +192,9 @@ class CountDown {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level1__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mover_movement_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__starting_the_game_js__ = __webpack_require__(4);
-
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spin_motion_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__ = __webpack_require__(4);
 
 
 
@@ -204,17 +204,22 @@ class CountDown {
 const resetGame = (status) => {
   if(!status) {
     $("#you-win-screen").show();
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["b" /* stopSpin */]);
   } else {
+
+
+
+
+    newGame.stopGame();
     $(document).off("keydown");
     $(document).off("keyup");
     $("#gameOverScreen").show();
-    
+
   }
 
 
-  document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_4__starting_the_game_js__["spaceBar"], {once: true});
+  document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__["spaceBar"], {once: true});
 
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = resetGame;
@@ -250,6 +255,7 @@ class Game {
     this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
     this.step = this.step.bind(this);
     this.currentLevel = 0;
+    this.clock = new __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* default */]();
   }
 
   step() {
@@ -263,9 +269,12 @@ class Game {
     }
   }
 
-  startClock(duration = 35) {
-    let clock = new __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* default */](duration);
-    clock.tick();
+  startClock(duration = 15) {
+    this.clock.tick();
+  }
+
+  stopClock() {
+    this.clock.stop_tick();
   }
 
   clockReset() {
@@ -290,7 +299,7 @@ class Game {
   }
 
   nextLevel() {
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
+    this.stopClock(); 
     clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* stopSpin */]);
     this.newPieces();
     this.startSpin();
@@ -329,10 +338,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 window.levelNumber = 0;
-
+window.newGame = false ;
 const spaceBar = (e) => {
   if(e.keyCode === 32) {
-    let newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
+    levelNumber = 0;
+    $("#gameOverScreen").hide();
+    $("#you-win-screen").hide();
+    if(newGame) {
+      newGame.clockReset();
+      newGame.stopGame();
+    }
+    newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
     newGame.play();
     let item = document.getElementById("game");
     item.style.transform = `rotate(0deg)`;
