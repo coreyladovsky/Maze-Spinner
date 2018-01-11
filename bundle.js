@@ -117,8 +117,8 @@ const  keepSpinning = (array, degrees, el) => {
 let clearTime;
 
 class CountDown {
-  constructor(duration = 30) {
-    this.duration = duration;
+  constructor() {
+    this.duration;
     this.color = "white";
     this.lose = false;
     this.clearTime;
@@ -128,25 +128,25 @@ class CountDown {
     clearTimeout(this.clearTime);
   }
 
-  tick() {
-    if(this.duration < 0) {
+  tick(duration) {
+    if(duration < 0) {
       document.getElementById('timer').innerHTML = "Times up!";
-      clearTimeout(clearTime);
+      clearTimeout(this.clearTime);
       clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
       cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_game_js__["cancelFrame"]);
       this.lose = true;
       Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(this.lose);
     } else {
-        let minutes = Math.floor(this.duration / 60);
-        let seconds = this.duration % 60;
+        let minutes = Math.floor(duration / 60);
+        let seconds = duration % 60;
         this.clearTime = setTimeout( () => {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         if(seconds <= 10){
           this.color = "red";
         }
         seconds = seconds < 10 ? "0" + seconds : seconds;
-        this.duration--;
-        this.tick(this.duration);
+        duration--;
+        this.tick(duration);
         document.getElementById('timer').innerHTML = minutes + ":" + seconds;
         $("#timer").css({"color": this.color});
 
@@ -157,34 +157,6 @@ class CountDown {
 }
 
 /* harmony default export */ __webpack_exports__["b"] = (CountDown);
-
-// export const countDown = (duration) => {
-//   let color = "white";
-//   let lose = false;
-//   if(duration < 0) {
-//     document.getElementById('timer').innerHTML = "Times up!";
-//       clearTimeout(clearTime);
-//       clearTimeout(stopSpin);
-//       cancelAnimationFrame(cancelFrame);
-//       lose = true;
-//     resetGame(lose);
-//   } else {
-//   let minutes = Math.floor(duration / 60);
-//   let seconds = duration % 60;
-//     clearTime = setTimeout( () => {
-//     minutes = minutes < 10 ? "0" + minutes : minutes;
-//     if(seconds <= 10){
-//       color = "red";
-//     }
-//     seconds = seconds < 10 ? "0" + seconds : seconds;
-//     duration--;
-//     countDown(duration);
-//     document.getElementById('timer').innerHTML = minutes + ":" + seconds;
-//     $("#timer").css({"color": color});
-//
-//   }, 1000);
-// }
-// };
 
 
 /***/ }),
@@ -270,7 +242,7 @@ class Game {
   }
 
   startClock(duration = 15) {
-    this.clock.tick();
+    this.clock.tick(duration);
   }
 
   stopClock() {
@@ -278,8 +250,9 @@ class Game {
   }
 
   clockReset() {
-    $("#timer").css({"color": "white"});
+    this.stopClock();
     document.getElementById('timer').innerHTML = "Ready!";
+    $("#timer").css({"color": "white"});
     this.startClock();
   }
 
@@ -299,7 +272,6 @@ class Game {
   }
 
   nextLevel() {
-    this.stopClock(); 
     clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* stopSpin */]);
     this.newPieces();
     this.startSpin();
