@@ -515,14 +515,15 @@ const keyupListner = (mover) => (e) => {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__levels_level1_js__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__ = __webpack_require__(16);
 
 
 
-// import { maze5 } from './levels/level5.js';
 
 
 
-const levelArray = [__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */]];
+
+const levelArray = [__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */], __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */]];
 /* harmony export (immutable) */ __webpack_exports__["a"] = levelArray;
 
 
@@ -570,17 +571,17 @@ function rotation(angle, counter, degrees, el){
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collision__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__next_level_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__winner_screen_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levelArray_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levelArray_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reset_game_js__ = __webpack_require__(2);
 
 
-
+// import { restartGame } from './winner_screen.js';
 
 // import { levelNumber } from './starting_the_game.js';
 
 class GameDrawing {
   constructor(ctx, mover, duration=25) {
-    this.maze = __WEBPACK_IMPORTED_MODULE_3__levelArray_js__["a" /* levelArray */][levelNumber];
+    this.maze = __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */][levelNumber];
     this.ctx = ctx;
     this.mover = mover;
     this.gameOver = false;
@@ -643,6 +644,9 @@ class GameDrawing {
 
             if(this.gameOver === false) {
               levelNumber++;
+              if(levelNumber === __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */].length) {
+                Object(__WEBPACK_IMPORTED_MODULE_3__reset_game_js__["a" /* resetGame */])();
+              }
 
             }
              this.gameOver = true ;
@@ -696,29 +700,7 @@ const trueCollisionCheck = (mover_x, mover_y, tile_y, tile_x, tile_width) => {
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__reset_game_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-
-
-
-
-
-const restartGame = () => {
-  $("#you-win-screen").show();
-  clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
-  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["b" /* stopSpin */]);
-  Object(__WEBPACK_IMPORTED_MODULE_0__reset_game_js__["a" /* resetGame */])();
-};
-/* unused harmony export restartGame */
-
-
-
-/***/ }),
+/* 12 */,
 /* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -897,6 +879,49 @@ class Mover {
  }
 
 /* harmony default export */ __webpack_exports__["a"] = (Mover);
+
+
+/***/ }),
+/* 16 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+  const maze5 = [
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,1,1,1,1,3,3,3,3,1,1,1,1,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,3,3,3,1,3,1,1,3,1,3,3,3,1,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,1,3,1,3,1,3,1,3,3,1,3,1,3,1,0,0,0,0,0,0,0,0],
+        [0,0,0,1,1,1,1,3,1,3,1,3,1,3,1,3,3,1,3,1,0,0,0,0,0,0,0,0],
+        [0,0,0,1,3,3,3,3,1,3,1,3,1,3,1,3,1,1,3,1,1,1,1,1,0,0,0,0],
+        [0,0,0,1,3,1,1,1,1,3,3,3,1,3,3,3,1,3,3,1,3,3,3,1,0,0,0,0],
+        [0,0,0,1,3,3,3,3,1,1,1,1,1,1,1,1,1,3,1,3,3,1,3,1,0,0,0,0],
+        [0,0,1,1,1,1,1,3,1,3,3,3,3,3,3,3,3,3,1,3,1,1,3,1,0,0,0,0],
+        [0,0,1,2,2,3,1,3,1,3,1,1,1,1,1,1,1,1,1,3,3,1,3,1,0,0,0,0],
+        [0,0,1,1,1,3,1,3,1,3,1,3,3,3,3,1,3,3,3,1,3,1,3,1,0,0,0,0],
+        [0,0,0,0,1,3,1,3,1,3,3,3,1,1,3,1,3,1,3,1,3,1,3,1,0,0,0,0],
+        [0,0,0,0,1,3,3,3,1,1,1,1,1,3,3,1,3,1,3,1,3,1,3,1,0,0,0,0],
+        [0,0,0,0,1,1,1,1,1,3,3,3,3,3,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
+        [0,0,0,0,0,1,3,3,3,3,1,1,1,1,1,1,3,1,3,1,3,1,3,1,0,0,0,0],
+        [0,0,0,0,0,1,3,1,1,1,1,1,3,3,3,1,3,1,3,1,3,1,4,1,0,0,0,0],
+        [0,0,0,0,0,1,3,1,3,3,3,1,3,1,3,1,3,1,3,1,3,1,4,1,0,0,0,0],
+        [0,0,0,0,0,1,3,3,3,1,3,1,3,1,3,1,3,1,3,1,3,1,1,1,0,0,0,0],
+        [0,0,0,0,0,1,1,1,1,1,3,1,3,1,3,1,3,1,3,3,3,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,1,3,3,3,1,3,3,3,1,1,1,1,1,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+      ];
+/* harmony export (immutable) */ __webpack_exports__["a"] = maze5;
+
 
 
 /***/ })
