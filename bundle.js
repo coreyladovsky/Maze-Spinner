@@ -137,12 +137,14 @@ class CountDown {
       this.lose = true;
       Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(this.lose);
     } else {
-        let minutes = Math.floor(duration / 60);
-        let seconds = duration % 60;
-        this.clearTime = setTimeout( () => {
+      let minutes = Math.floor(duration / 60);
+      let seconds = duration % 60;
+      this.clearTime = setTimeout( () => {
         minutes = minutes < 10 ? "0" + minutes : minutes;
         if(seconds <= 10){
           this.color = "red";
+        } else {
+          this.color = "white"; 
         }
         seconds = seconds < 10 ? "0" + seconds : seconds;
         duration--;
@@ -285,7 +287,7 @@ class Game {
   }
 
   play() {
-    this.startClock();
+    this.clockReset();
     this.step();
     this.move();
   }
@@ -317,7 +319,6 @@ const spaceBar = (e) => {
     $("#gameOverScreen").hide();
     $("#you-win-screen").hide();
     if(newGame) {
-      newGame.clockReset();
       newGame.stopGame();
     }
     newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
