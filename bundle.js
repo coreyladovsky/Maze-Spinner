@@ -178,19 +178,19 @@ class CountDown {
 const resetGame = (status) => {
   if(!status) {
     $("#you-win-screen").show();
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["b" /* stopSpin */]);
+
   } else {
 
-
-
-
-    newGame.stopGame();
-    $(document).off("keydown");
-    $(document).off("keyup");
     $("#gameOverScreen").show();
 
   }
+
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["b" /* stopSpin */]);
+  newGame.stopGame();
+  newGame.stopClock()
+  $(document).off("keydown");
+  $(document).off("keyup");
 
 
   document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__["spaceBar"], {once: true});
@@ -243,7 +243,7 @@ class Game {
     }
   }
 
-  startClock(duration = 15) {
+  startClock(duration = 35) {
     this.clock.tick(duration);
   }
 
