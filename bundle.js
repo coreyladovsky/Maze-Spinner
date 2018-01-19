@@ -148,7 +148,7 @@ class CountDown {
         if(seconds <= 10){
           this.color = "red";
         } else {
-          this.color = "white"; 
+          this.color = "white";
         }
         seconds = seconds < 10 ? "0" + seconds : seconds;
         duration--;
@@ -182,11 +182,8 @@ class CountDown {
 const resetGame = (status) => {
   if(!status) {
     $("#you-win-screen").show();
-
   } else {
-
     $("#gameOverScreen").show();
-
   }
 
   clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
@@ -232,7 +229,7 @@ class Game {
     this.ctx = this.game.getContext("2d");
     this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
     this.gameOver = false;
-    this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
+    this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover);
     this.step = this.step.bind(this);
     this.currentLevel = 0;
     this.clock = new __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* default */]();
@@ -249,8 +246,8 @@ class Game {
     }
   }
 
-  startClock(duration = 35) {
-    this.clock.tick(duration);
+  startClock() {
+    this.clock.tick(__WEBPACK_IMPORTED_MODULE_5__levelArray_js__["a" /* levelArray */][levelNumber][1]);
   }
 
   stopClock() {
@@ -412,7 +409,7 @@ document.addEventListener("keypress", spaceBar, {once: true});
 
 
 
-const levelArray = [__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */], __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */], __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */]];
+const levelArray = [[__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], 30], [__WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], 30], [__WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */],40], [__WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */], 40]];
 /* harmony export (immutable) */ __webpack_exports__["a"] = levelArray;
 
 
@@ -529,17 +526,15 @@ function rotation(angle, counter, degrees, el){
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reset_game_js__ = __webpack_require__(2);
 
 
-// import { restartGame } from './winner_screen.js';
 
 
 class GameDrawing {
-  constructor(ctx, mover, duration=25) {
-    this.maze = __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */][levelNumber];
+  constructor(ctx, mover) {
+    this.maze = __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */][levelNumber][0];
     this.ctx = ctx;
     this.mover = mover;
     this.gameOver = false;
     this.nextMaze = levelNumber + 1;
-    this.duration = duration;
     this.draw_reset = this.draw_reset.bind(this);
   }
 
@@ -557,66 +552,64 @@ class GameDrawing {
 
     if(!this.gameOver) {
 
+      for(let y = 0; y < this.maze.length; y++) {
+        for(let x = 0; x < this.maze[y].length; x++) {
+          let tile = this.maze[y][x];
+          if(this.maze[y][x] === 1) {
+            this.ctx.fillStyle = "black";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
 
-    for(let y = 0; y < this.maze.length; y++) {
-      for(let x = 0; x < this.maze[y].length; x++) {
-        let tile = this.maze[y][x];
-        if(this.maze[y][x] === 1) {
-          this.ctx.fillStyle = "black";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
-
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
-            this.mover.revertX();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y - 0.5, y  * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y - 3.5, y * 25, x * 25, 25)) {
-            this.mover.revertX();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y + 3.5, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y + 3.5, y * 25, x * 25, 25)) {
-            this.mover.revertX();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y - 7, y * 25, x * 25, 25)) {
-            this.mover.revertY();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
-            this.mover.revertY();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
-            this.mover.revertY();
-          }
-
-        } else if(this.maze[y][x] === 2) {
-          this.ctx.fillStyle = "green";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
-
-
-        } else if(this.maze[y][x] === 3) {
-          this.ctx.fillStyle = "white";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
-        } else if(this.maze[y][x] === 4) {
-          this.ctx.fillStyle = "red";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
-
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
-            levelNumber++;
-            this.gameOver = true ;
-
-            if(levelNumber === __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */].length - 1) {
-              setTimeout(() => {
-                newGame.stopGame()
-                newGame.stopClock();
-                Object(__WEBPACK_IMPORTED_MODULE_3__reset_game_js__["a" /* resetGame */])();
-
-              }, 0)
-
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
+              this.mover.revertX();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y - 0.5, y  * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y - 3.5, y * 25, x * 25, 25)) {
+              this.mover.revertX();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y + 3.5, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y + 3.5, y * 25, x * 25, 25)) {
+              this.mover.revertX();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+              this.mover.revertY();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+              this.mover.revertY();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+              this.mover.revertY();
             }
 
+          } else if(this.maze[y][x] === 2) {
+            this.ctx.fillStyle = "green";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
+
+
+          } else if(this.maze[y][x] === 3) {
+            this.ctx.fillStyle = "white";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
+          } else if(this.maze[y][x] === 4) {
+            this.ctx.fillStyle = "red";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
+
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
+              levelNumber++;
+              this.gameOver = true ;
+
+              if(levelNumber === __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */].length) {
+                setTimeout(() => {
+                  newGame.stopGame();
+                  newGame.stopClock();
+                  Object(__WEBPACK_IMPORTED_MODULE_3__reset_game_js__["a" /* resetGame */])();
+                }, 0);
+
+              }
+
+            }
           }
         }
       }
-    }
 
+    }
   }
-}
 }
 
 /* harmony default export */ __webpack_exports__["a"] = (GameDrawing);
