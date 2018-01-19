@@ -68,16 +68,20 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return stopSpin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return stopSpin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return rotator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return rotatie; });
  let stopSpin;
+ let rotator;
+ let rotatie;
 
 function rotate(angle, counter, degrees, el){
   degrees += angle;
-  setTimeout(() => {
+  rotator = setTimeout(() => {
     counter++ ;
     el.style.transform = `rotate(${degrees}deg)`;
     if(counter < 90) {
-      setTimeout(() => {
+       rotatie = setTimeout(() => {
         rotate(angle, counter, degrees, el);
       }, 5);
     }
@@ -109,42 +113,56 @@ const  keepSpinning = (array, degrees, el) => {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return clearTime; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reset_game_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_level1_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_game_js__ = __webpack_require__(3);
 
 
 
 
 let clearTime;
 
-const countDown = (duration) => {
-  let color = "white";
-  let lose = false;
-  if(duration < 0) {
-    document.getElementById('timer').innerHTML = "Times up!";
-      clearTimeout(clearTime);
-      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
-      cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_level1_js__["a" /* cancelFrame */]);
-      lose = true;
-    Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(lose);
-  } else {
-  let minutes = Math.floor(duration / 60);
-  let seconds = duration % 60;
-    clearTime = setTimeout( () => {
-    minutes = minutes < 10 ? "0" + minutes : minutes;
-    if(seconds <= 10){
-      color = "red";
+class CountDown {
+  constructor() {
+    this.duration;
+    this.color = "white";
+    this.lose = false;
+    this.clearTime;
+  }
+
+  stop_tick() {
+    clearTimeout(this.clearTime);
+  }
+
+  tick(duration) {
+    if(duration < 0) {
+      document.getElementById('timer').innerHTML = "Times up!";
+      clearTimeout(this.clearTime);
+      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["d" /* stopSpin */]);
+      cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_game_js__["cancelFrame"]);
+      this.lose = true;
+      Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(this.lose);
+    } else {
+      let minutes = Math.floor(duration / 60);
+      let seconds = duration % 60;
+      this.clearTime = setTimeout( () => {
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        if(seconds <= 10){
+          this.color = "red";
+        } else {
+          this.color = "white";
+        }
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+        duration--;
+        this.tick(duration);
+        document.getElementById('timer').innerHTML = minutes + ":" + seconds;
+        $("#timer").css({"color": this.color});
+
+      }, 1000);
     }
-    seconds = seconds < 10 ? "0" + seconds : seconds;
-    duration--;
-    countDown(duration);
-    document.getElementById('timer').innerHTML = minutes + ":" + seconds;
-    $("#timer").css({"color": color});
+  }
 
-  }, 1000);
 }
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = countDown;
 
+/* harmony default export */ __webpack_exports__["b"] = (CountDown);
 
 
 /***/ }),
@@ -152,14 +170,9 @@ const countDown = (duration) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level1__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mover_movement_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__starting_the_game_js__ = __webpack_require__(4);
-
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spin_motion_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__ = __webpack_require__(4);
 
 
 
@@ -169,24 +182,125 @@ const countDown = (duration) => {
 const resetGame = (status) => {
   if(!status) {
     $("#you-win-screen").show();
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
   } else {
-    $(document).off("keydown");
-    $(document).off("keyup");
     $("#gameOverScreen").show();
   }
 
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["d" /* stopSpin */]);
+  let lastGame = newGame
+  newGame = false;
 
-  document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_4__starting_the_game_js__["spaceBar"], {once: true});
+  lastGame.stopClock();
+  lastGame.stopGame();
+  $(document).off("keydown");
+  $(document).off("keyup");
 
+
+  document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__["spaceBar"], {once: true});
 };
 /* harmony export (immutable) */ __webpack_exports__["a"] = resetGame;
 
 
 
 /***/ }),
-/* 3 */,
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__levelArray_js__ = __webpack_require__(6);
+
+
+
+
+
+
+
+
+class Game {
+  constructor() {
+    this.cancelFrame;
+    this.game = document.getElementById("game");
+    this.ctx = this.game.getContext("2d");
+    this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
+    this.gameOver = false;
+    this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover);
+    this.step = this.step.bind(this);
+    this.currentLevel = 0;
+    this.clock = new __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* default */]();
+  }
+
+  step() {
+    this.ctx.clearRect(0,0, 700, 700);
+    this.gameDrawing.draw_reset();
+    this.mover.start();
+    this.cancelFrame = requestAnimationFrame(this.step);
+    if (this.currentLevel !== levelNumber) {
+      this.currentLevel ++ ;
+      this.nextLevel();
+    }
+  }
+
+  startClock() {
+    this.clock.tick(__WEBPACK_IMPORTED_MODULE_5__levelArray_js__["a" /* levelArray */][levelNumber][1]);
+  }
+
+  stopClock() {
+    this.clock.stop_tick();
+  }
+
+  clockReset() {
+    this.stopClock();
+    document.getElementById('timer').innerHTML = "Ready!";
+    $("#timer").css({"color": "white"});
+    this.startClock();
+  }
+
+  stopGame() {
+    cancelAnimationFrame(this.cancelFrame);
+  }
+
+  newPieces() {
+    this.mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, this.ctx);
+    this.gameDrawing = new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](this.ctx, this.mover, this.duration);
+  }
+
+  startSpin() {
+    this.game.style.transform = `rotate(0deg)`;
+    Object(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, this.game);
+  }
+
+  nextLevel() {
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["d" /* stopSpin */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["c" /* rotator */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* rotatie */]);
+    this.newPieces();
+    this.startSpin();
+    this.clockReset();
+    this.move();
+  }
+
+  move() {
+    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(this.mover));
+    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(this.mover));
+  }
+
+  play() {
+    this.clockReset();
+    this.step();
+    this.move();
+  }
+}
+
+/* harmony default export */ __webpack_exports__["b"] = (Game);
+
+
+/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -195,17 +309,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__opening_spin_js__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__next_level_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_game_js__ = __webpack_require__(3);
 
 
 
 
 
-
-
+window.levelNumber = 0;
+window.newGame = false ;
 const spaceBar = (e) => {
   if(e.keyCode === 32) {
-    Object(__WEBPACK_IMPORTED_MODULE_2__next_level_js__["a" /* nextLevel */])("#level1", __WEBPACK_IMPORTED_MODULE_3__levels_level1_js__["b" /* level1 */], 30);
+    levelNumber = 0;
+    $("#gameOverScreen").hide();
+    $("#you-win-screen").hide();
+    if(newGame) {
+      newGame.stopGame();
+    }
+    newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
+    newGame.play();
+    let item = document.getElementById("game");
+    item.style.transform = `rotate(0deg)`;
+    Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
+    $("#opening-screen").hide();
+    $("#game").show();
   }
 };
 /* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
@@ -228,18 +354,22 @@ document.addEventListener("keypress", spaceBar, {once: true});
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reset_game_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_game_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(7);
 
 
 
 
 
-    const nextLevel = (showLevel, nextLevelFn, duration) => {
-      if (nextLevelFn === __WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */]) {
+
+
+    const nextLevel = (duration) => {
+      if (duration === __WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */]) {
         Object(__WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */])();
         return;
       }
       clearTimeout(__WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__["a" /* clearTime */]);
-      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
+      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["d" /* stopSpin */]);
       $("#timer").css({"color": "white"});
       document.getElementById('timer').innerHTML = "Ready!";
 
@@ -247,25 +377,44 @@ document.addEventListener("keypress", spaceBar, {once: true});
       $("#opening-screen").hide();
       $("#you-win-screen").hide();
       $("#gameOverScreen").hide();
-      $("#level1").hide();
-      $("#level2").hide();
-      $("#level3").hide();
-      $("#level5").hide();
-
-
-      $(showLevel).show();
-
-      let item = document.getElementById(showLevel.slice(1));
+      $("#game").show();
+      let item = document.getElementById("game");
       item.style.transform = `rotate(0deg)`;
       Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
-      nextLevelFn(duration);
+
+
+      // console.log(cancelFrame);
+      // cancelAnimationFrame(cancelFrame);
+      // cancelAnimationFrame(cancelFrame + 1);
+      // cancelAnimationFrame(cancelFrame - 1);
+      Object(__WEBPACK_IMPORTED_MODULE_3__levels_game_js__["game"])(duration);
     };
-/* harmony export (immutable) */ __webpack_exports__["a"] = nextLevel;
+/* unused harmony export nextLevel */
 
 
 
 /***/ }),
-/* 6 */,
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__levels_level1_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__ = __webpack_require__(14);
+
+
+
+
+
+
+
+const levelArray = [[__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], 30], [__WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], 30], [__WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */],40], [__WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */], 40]];
+/* harmony export (immutable) */ __webpack_exports__["a"] = levelArray;
+
+
+
+/***/ }),
 /* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -373,20 +522,20 @@ function rotation(angle, counter, degrees, el){
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collision__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__next_level_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__winner_screen_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levelArray_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reset_game_js__ = __webpack_require__(2);
 
 
 
 
 class GameDrawing {
-  constructor(maze, ctx, mover, elId, lvlFn, duration) {
-    this.maze = maze;
+  constructor(ctx, mover) {
+    this.maze = __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */][levelNumber][0];
     this.ctx = ctx;
     this.mover = mover;
     this.gameOver = false;
-    this.elId = elId;
-    this.lvlFn = lvlFn;
-    this.duration = duration;
+    this.nextMaze = levelNumber + 1;
+    this.draw_reset = this.draw_reset.bind(this);
   }
 
   draw_reset() {
@@ -401,59 +550,65 @@ class GameDrawing {
     this.ctx.fill();
     this.ctx.closePath();
 
-    for(let y = 0; y < this.maze.length; y++) {
-      for(let x = 0; x < this.maze[y].length; x++) {
-        let tile = this.maze[y][x];
-        if(this.maze[y][x] === 1) {
-          this.ctx.fillStyle = "black";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
+    if(!this.gameOver) {
 
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
-            this.mover.revertX();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y - 0.5, y  * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y - 3.5, y * 25, x * 25, 25)) {
-            this.mover.revertX();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y + 3.5, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y + 3.5, y * 25, x * 25, 25)) {
-            this.mover.revertX();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y - 7, y * 25, x * 25, 25)) {
-            this.mover.revertY();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
-            this.mover.revertY();
-          }
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
-            this.mover.revertY();
-          }
+      for(let y = 0; y < this.maze.length; y++) {
+        for(let x = 0; x < this.maze[y].length; x++) {
+          let tile = this.maze[y][x];
+          if(this.maze[y][x] === 1) {
+            this.ctx.fillStyle = "black";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
 
-        } else if(this.maze[y][x] === 2) {
-          this.ctx.fillStyle = "green";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
-
-
-        } else if(this.maze[y][x] === 3) {
-          this.ctx.fillStyle = "white";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
-        } else if(this.maze[y][x] === 4) {
-          this.ctx.fillStyle = "red";
-          this.ctx.fillRect(x * 25, y * 25, 25, 25);
-
-          if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
-
-            if(this.gameOver === false) {
-              Object(__WEBPACK_IMPORTED_MODULE_1__next_level_js__["a" /* nextLevel */])(this.elId, this.lvlFn, this.duration);
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
+              this.mover.revertX();
             }
-             this.gameOver = true ;
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y - 0.5, y  * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y - 3.5, y * 25, x * 25, 25)) {
+              this.mover.revertX();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 7, this.mover.run_y + 3.5, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y + 3.5, y * 25, x * 25, 25)) {
+              this.mover.revertX();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+              this.mover.revertY();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x + 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+              this.mover.revertY();
+            }
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y + 7, y * 25, x * 25, 25) || Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 3.6, this.mover.run_y - 7, y * 25, x * 25, 25)) {
+              this.mover.revertY();
+            }
+
+          } else if(this.maze[y][x] === 2) {
+            this.ctx.fillStyle = "green";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
 
 
+          } else if(this.maze[y][x] === 3) {
+            this.ctx.fillStyle = "white";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
+          } else if(this.maze[y][x] === 4) {
+            this.ctx.fillStyle = "red";
+            this.ctx.fillRect(x * 25, y * 25, 25, 25);
 
+            if(Object(__WEBPACK_IMPORTED_MODULE_0__collision__["a" /* trueCollisionCheck */])(this.mover.run_x - 7, this.mover.run_y, y * 25, x * 25, 25)) {
+              levelNumber++;
+              this.gameOver = true ;
 
+              if(levelNumber === __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */].length) {
+                setTimeout(() => {
+                  newGame.stopGame();
+                  newGame.stopClock();
+                  Object(__WEBPACK_IMPORTED_MODULE_3__reset_game_js__["a" /* resetGame */])();
+                }, 0);
+
+              }
+
+            }
           }
         }
       }
-    }
 
+    }
   }
 }
 
@@ -502,31 +657,8 @@ const trueCollisionCheck = (mover_x, mover_y, tile_y, tile_x, tile_width) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return cancelFrame; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__level2__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mover_movement_js__ = __webpack_require__(7);
 
-
-
-
-
-
-
-let cancelFrame;
-
-const level1 = (timer)  => {
-  let nextLevel;
-   Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
-  // let cancelFrame;
-  let gameOver = false;
-  let canvas = document.getElementById('level1');
-  let ctx = canvas.getContext("2d");
-
-  let maze = [
+  const maze1 = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -558,24 +690,7 @@ const level1 = (timer)  => {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       ];
-
-    let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-    let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level2", __WEBPACK_IMPORTED_MODULE_4__level2__["a" /* level2 */], 30);
-
-    function step() {
-      ctx.clearRect(0,0, 700, 700);
-      gamedrawing.draw_reset();
-      mover.start();
-      cancelFrame = requestAnimationFrame(step);
-    }
-
-    step();
-
-    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
-    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
-
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = level1;
+/* harmony export (immutable) */ __webpack_exports__["a"] = maze1;
 
 
 
@@ -584,28 +699,8 @@ const level1 = (timer)  => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__level3__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mover_movement_js__ = __webpack_require__(7);
 
-
-
-
-
-
-
-const level2 = (timer) => {
-  let nextLevel;
-  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
-  let cancelFrame;
-  let gameOver = false;
-  let canvas = document.getElementById('level2');
-  let ctx = canvas.getContext("2d");
-
-  let maze = [
+  const maze2 = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -637,23 +732,7 @@ const level2 = (timer) => {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       ];
-
-    let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-
-    let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level3", __WEBPACK_IMPORTED_MODULE_4__level3__["a" /* level3 */], 40);
-
-    function step() {
-      ctx.clearRect(0,0, 700, 700);
-      gamedrawing.draw_reset();
-      mover.start();
-      cancelFrame = requestAnimationFrame(step);
-    }
-
-    step();
-    $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
-    $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = level2;
+/* harmony export (immutable) */ __webpack_exports__["a"] = maze2;
 
 
 
@@ -662,28 +741,7 @@ const level2 = (timer) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__level5_js__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mover_movement_js__ = __webpack_require__(7);
-
-
-
-
-
-
-
-const level3 = (timer) => {
-  let nextLevel;
-  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
-  let cancelFrame;
-  let gameOver = false;
-  let canvas = document.getElementById('level3');
-  let ctx = canvas.getContext("2d");
-
-  let maze = [
+const maze3 = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -715,28 +773,7 @@ const level3 = (timer) => {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       ];
-
-
-  let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-
-  let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level5", __WEBPACK_IMPORTED_MODULE_4__level5_js__["a" /* level5 */], 40);
-
-  function step() {
-    ctx.clearRect(0,0, 700, 700);
-    gamedrawing.draw_reset();
-    mover.start();
-    cancelFrame = requestAnimationFrame(step);
-  }
-
-  step();
-
-  $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["a" /* keydownListner */])(mover));
-  $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_5__mover_movement_js__["b" /* keyupListner */])(mover));
-
-
-
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = level3;
+/* harmony export (immutable) */ __webpack_exports__["a"] = maze3;
 
 
 
@@ -745,27 +782,9 @@ const level3 = (timer) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(15);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_game_js__ = __webpack_require__(2);
 
 
-
-
-
-
-
-const level5 = (timer) =>  {
-  Object(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["b" /* countDown */])(timer);
-  let cancelFrame;
-  let gameOver = false;
-  let canvas = document.getElementById('level5');
-  let ctx = canvas.getContext("2d");
-
-  let maze = [
+  const maze5 = [
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -797,28 +816,7 @@ const level5 = (timer) =>  {
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
       ];
-
-      let mover = new __WEBPACK_IMPORTED_MODULE_1__mover_js__["a" /* default */](82, 337, ctx);
-
-      let gamedrawing =  new __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__["a" /* default */](maze, ctx, mover, "#level5", __WEBPACK_IMPORTED_MODULE_5__reset_game_js__["a" /* resetGame */], 40);
-
-      function step() {
-        ctx.clearRect(0,0, 700, 700);
-        gamedrawing.draw_reset();
-        mover.start();
-        cancelFrame = requestAnimationFrame(step);
-      }
-
-      step();
-
-      $(document).on("keydown", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["a" /* keydownListner */])(mover));
-      $(document).on("keyup", Object(__WEBPACK_IMPORTED_MODULE_4__mover_movement_js__["b" /* keyupListner */])(mover));
-
-
-
-
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = level5;
+/* harmony export (immutable) */ __webpack_exports__["a"] = maze5;
 
 
 
@@ -894,7 +892,7 @@ class Mover {
         this.ctx.closePath();
       }
 
-    updateMover(){
+    updateMover() {
       this.last_y = this.run_y;
       this.last_x = this.run_x;
       if(this.movement.up) {
@@ -918,29 +916,6 @@ class Mover {
  }
 
 /* harmony default export */ __webpack_exports__["a"] = (Mover);
-
-
-/***/ }),
-/* 16 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__reset_game_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
-
-
-
-
-
-const restartGame = () => {
-  $("#you-win-screen").show();
-  clearTimeout(__WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__["a" /* clearTime */]);
-  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["b" /* stopSpin */]);
-  Object(__WEBPACK_IMPORTED_MODULE_0__reset_game_js__["a" /* resetGame */])();
-};
-/* unused harmony export restartGame */
-
 
 
 /***/ })
