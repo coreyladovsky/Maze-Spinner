@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -112,7 +112,7 @@ const  keepSpinning = (array, degrees, el) => {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return clearTime; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reset_game_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__reset_game_js__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_game_js__ = __webpack_require__(3);
 
 
@@ -170,37 +170,47 @@ class CountDown {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__ = __webpack_require__(4);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__opening_spin_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_game_js__ = __webpack_require__(3);
 
 
 
 
+window.levelNumber = 0;
+window.newGame = false ;
 
+const spaceBar = (e) => {
+  if(e.keyCode === 32) {
+    levelNumber = 0;
+    $("#gameOverScreen").hide();
+    $("#you-win-screen").hide();
 
-const resetGame = (status) => {
-  if(!status) {
-    $("#you-win-screen").show();
-  } else {
-    $("#gameOverScreen").show();
+    if(newGame) {
+      newGame.stopGame();
+    }
+
+    newGame = new __WEBPACK_IMPORTED_MODULE_2__levels_game_js__["b" /* default */]();
+    newGame.play();
+
+    let item = document.getElementById("game");
+    item.style.transform = `rotate(0deg)`;
+    Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
+    $("#opening-screen").hide();
+    $("#game").show();
   }
-
-  clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
-  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["d" /* stopSpin */]);
-  let lastGame = newGame
-  newGame = false;
-
-  lastGame.stopClock();
-  lastGame.stopGame();
-  $(document).off("keydown");
-  $(document).off("keyup");
-
-
-  document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__["spaceBar"], {once: true});
 };
-/* harmony export (immutable) */ __webpack_exports__["a"] = resetGame;
+/* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
 
+
+$("#gameOverScreen").hide();
+$("#you-win-screen").hide();
+
+Object(__WEBPACK_IMPORTED_MODULE_1__opening_spin_js__["a" /* opener */])([1,-1], 0, "spinner-text");
+
+
+document.addEventListener("keypress", spaceBar, {once: true});
 
 
 /***/ }),
@@ -208,12 +218,12 @@ const resetGame = (status) => {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__gamedrawing_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mover_js__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__countdown_clock_js__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__levelArray_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__levelArray_js__ = __webpack_require__(4);
 
 
 
@@ -305,45 +315,20 @@ class Game {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__opening_spin_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__next_level_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_game_js__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__levels_level1_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__ = __webpack_require__(12);
 
 
 
 
 
-window.levelNumber = 0;
-window.newGame = false ;
-const spaceBar = (e) => {
-  if(e.keyCode === 32) {
-    levelNumber = 0;
-    $("#gameOverScreen").hide();
-    $("#you-win-screen").hide();
-    if(newGame) {
-      newGame.stopGame();
-    }
-    newGame = new __WEBPACK_IMPORTED_MODULE_3__levels_game_js__["b" /* default */]();
-    newGame.play();
-    let item = document.getElementById("game");
-    item.style.transform = `rotate(0deg)`;
-    Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
-    $("#opening-screen").hide();
-    $("#game").show();
-  }
-};
-/* harmony export (immutable) */ __webpack_exports__["spaceBar"] = spaceBar;
 
 
-$("#gameOverScreen").hide();
-$("#you-win-screen").hide();
+const levelArray = [[__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], 30], [__WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], 30], [__WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */],40], [__WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */], 40] ];
+/* harmony export (immutable) */ __webpack_exports__["a"] = levelArray;
 
-Object(__WEBPACK_IMPORTED_MODULE_1__opening_spin_js__["a" /* opener */])([1,-1], 0, "spinner-text");
-
-
-document.addEventListener("keypress", spaceBar, {once: true});
 
 
 /***/ }),
@@ -351,45 +336,36 @@ document.addEventListener("keypress", spaceBar, {once: true});
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__spin_motion_js__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reset_game_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_game_js__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mover_movement_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__spin_motion_js__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__ = __webpack_require__(2);
 
 
 
 
 
 
+const resetGame = (status) => {
+  if(!status) {
+    $("#you-win-screen").show();
+  } else {
+    $("#gameOverScreen").show();
+  }
 
-    const nextLevel = (duration) => {
-      if (duration === __WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */]) {
-        Object(__WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */])();
-        return;
-      }
-      clearTimeout(__WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__["a" /* clearTime */]);
-      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["d" /* stopSpin */]);
-      $("#timer").css({"color": "white"});
-      document.getElementById('timer').innerHTML = "Ready!";
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["d" /* stopSpin */]);
+  let lastGame = newGame
+  newGame = false;
 
-
-      $("#opening-screen").hide();
-      $("#you-win-screen").hide();
-      $("#gameOverScreen").hide();
-      $("#game").show();
-      let item = document.getElementById("game");
-      item.style.transform = `rotate(0deg)`;
-      Object(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
+  lastGame.stopClock();
+  lastGame.stopGame();
+  $(document).off("keydown");
+  $(document).off("keyup");
 
 
-      // console.log(cancelFrame);
-      // cancelAnimationFrame(cancelFrame);
-      // cancelAnimationFrame(cancelFrame + 1);
-      // cancelAnimationFrame(cancelFrame - 1);
-      Object(__WEBPACK_IMPORTED_MODULE_3__levels_game_js__["game"])(duration);
-    };
-/* unused harmony export nextLevel */
+  document.addEventListener("keypress", __WEBPACK_IMPORTED_MODULE_2__starting_the_game_js__["spaceBar"], {once: true});
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = resetGame;
 
 
 
@@ -398,97 +374,11 @@ document.addEventListener("keypress", spaceBar, {once: true});
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__levels_level1_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levels_level2_js__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levels_level3_js__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__levels_level5_js__ = __webpack_require__(14);
-
-
-
-
-
-
-
-const levelArray = [[__WEBPACK_IMPORTED_MODULE_0__levels_level1_js__["a" /* maze1 */], 30], [__WEBPACK_IMPORTED_MODULE_1__levels_level2_js__["a" /* maze2 */], 30], [__WEBPACK_IMPORTED_MODULE_2__levels_level3_js__["a" /* maze3 */],40], [__WEBPACK_IMPORTED_MODULE_3__levels_level5_js__["a" /* maze5 */], 40]];
-/* harmony export (immutable) */ __webpack_exports__["a"] = levelArray;
-
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-
-
-const keydownListner = (mover) => (e) => {
- switch (e.key) {
-   case "ArrowUp":
-   case "w":
-     mover.movement.down = false;
-     mover.movement.up = true;
-     break;
-   case "ArrowDown":
-   case "s":
-     mover.movement.up = false;
-     mover.movement.down = true;
-     break;
-   case "ArrowRight":
-   case "d":
-     mover.movement.left = false;
-     mover.movement.right = true;
-     break;
-   case "ArrowLeft":
-   case "a":
-     mover.movement.right = false;
-     mover.movement.left = true;
-     break;
-   default:
-   console.log("Please keep your eyes and attention on the game!");
-   console.log("https://github.com/coreyladovsky");
- }
-
-};
-/* harmony export (immutable) */ __webpack_exports__["a"] = keydownListner;
-
-
-
-const keyupListner = (mover) => (e) => {
-  switch (e.key) {
-    case "ArrowUp":
-    case "w":
-    mover.movement.up = false;
-      break;
-    case "ArrowDown":
-    case "s":
-    mover.movement.down = false;
-    break;
-    case "ArrowRight":
-    case "d":
-    mover.movement.right = false;
-    break;
-    case "ArrowLeft":
-    case "a":
-    mover.movement.left = false;
-      break;
-    default:
-    console.log("Please keep your eyes and attention on the game!");
-  }
-};
-/* harmony export (immutable) */ __webpack_exports__["b"] = keyupListner;
-
-
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 
 
 function rotation(angle, counter, degrees, el){
   degrees += angle;
-  // console.log(degrees);
+
   setTimeout(() => {
     counter++ ;
     let item = document.getElementById(el);
@@ -516,21 +406,19 @@ function rotation(angle, counter, degrees, el){
 
 
 /***/ }),
-/* 9 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collision__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__next_level_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__levelArray_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__reset_game_js__ = __webpack_require__(2);
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__collision__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__levelArray_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reset_game_js__ = __webpack_require__(5);
 
 
 
 class GameDrawing {
   constructor(ctx, mover) {
-    this.maze = __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */][levelNumber][0];
+    this.maze = __WEBPACK_IMPORTED_MODULE_1__levelArray_js__["a" /* levelArray */][levelNumber][0];
     this.ctx = ctx;
     this.mover = mover;
     this.gameOver = false;
@@ -594,11 +482,11 @@ class GameDrawing {
               levelNumber++;
               this.gameOver = true ;
 
-              if(levelNumber === __WEBPACK_IMPORTED_MODULE_2__levelArray_js__["a" /* levelArray */].length) {
+              if(levelNumber === __WEBPACK_IMPORTED_MODULE_1__levelArray_js__["a" /* levelArray */].length) {
                 setTimeout(() => {
                   newGame.stopGame();
                   newGame.stopClock();
-                  Object(__WEBPACK_IMPORTED_MODULE_3__reset_game_js__["a" /* resetGame */])();
+                  Object(__WEBPACK_IMPORTED_MODULE_2__reset_game_js__["a" /* resetGame */])();
                 }, 0);
 
               }
@@ -616,7 +504,7 @@ class GameDrawing {
 
 
 /***/ }),
-/* 10 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -653,7 +541,7 @@ const trueCollisionCheck = (mover_x, mover_y, tile_y, tile_x, tile_width) => {
 
 
 /***/ }),
-/* 11 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -695,7 +583,7 @@ const trueCollisionCheck = (mover_x, mover_y, tile_y, tile_x, tile_width) => {
 
 
 /***/ }),
-/* 12 */
+/* 10 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -737,7 +625,7 @@ const trueCollisionCheck = (mover_x, mover_y, tile_y, tile_x, tile_width) => {
 
 
 /***/ }),
-/* 13 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -778,7 +666,7 @@ const maze3 = [
 
 
 /***/ }),
-/* 14 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -821,7 +709,7 @@ const maze3 = [
 
 
 /***/ }),
-/* 15 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -916,6 +804,71 @@ class Mover {
  }
 
 /* harmony default export */ __webpack_exports__["a"] = (Mover);
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+
+
+const keydownListner = (mover) => (e) => {
+ switch (e.key) {
+   case "ArrowUp":
+   case "w":
+     mover.movement.down = false;
+     mover.movement.up = true;
+     break;
+   case "ArrowDown":
+   case "s":
+     mover.movement.up = false;
+     mover.movement.down = true;
+     break;
+   case "ArrowRight":
+   case "d":
+     mover.movement.left = false;
+     mover.movement.right = true;
+     break;
+   case "ArrowLeft":
+   case "a":
+     mover.movement.right = false;
+     mover.movement.left = true;
+     break;
+   default:
+   console.log("Please keep your eyes and attention on the game!");
+   console.log("https://github.com/coreyladovsky");
+ }
+
+};
+/* harmony export (immutable) */ __webpack_exports__["a"] = keydownListner;
+
+
+
+const keyupListner = (mover) => (e) => {
+  switch (e.key) {
+    case "ArrowUp":
+    case "w":
+    mover.movement.up = false;
+      break;
+    case "ArrowDown":
+    case "s":
+    mover.movement.down = false;
+    break;
+    case "ArrowRight":
+    case "d":
+    mover.movement.right = false;
+    break;
+    case "ArrowLeft":
+    case "a":
+    mover.movement.left = false;
+      break;
+    default:
+    console.log("Please keep your eyes and attention on the game!");
+  }
+};
+/* harmony export (immutable) */ __webpack_exports__["b"] = keyupListner;
+
 
 
 /***/ })
