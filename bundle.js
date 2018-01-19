@@ -68,16 +68,20 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return stopSpin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return stopSpin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return rotator; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return rotatie; });
  let stopSpin;
+ let rotator;
+ let rotatie;
 
 function rotate(angle, counter, degrees, el){
   degrees += angle;
-  setTimeout(() => {
+  rotator = setTimeout(() => {
     counter++ ;
     el.style.transform = `rotate(${degrees}deg)`;
     if(counter < 90) {
-      setTimeout(() => {
+       rotatie = setTimeout(() => {
         rotate(angle, counter, degrees, el);
       }, 5);
     }
@@ -132,7 +136,7 @@ class CountDown {
     if(duration < 0) {
       document.getElementById('timer').innerHTML = "Times up!";
       clearTimeout(this.clearTime);
-      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
+      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["d" /* stopSpin */]);
       cancelAnimationFrame(__WEBPACK_IMPORTED_MODULE_2__levels_game_js__["cancelFrame"]);
       this.lose = true;
       Object(__WEBPACK_IMPORTED_MODULE_1__reset_game_js__["a" /* resetGame */])(this.lose);
@@ -186,7 +190,7 @@ const resetGame = (status) => {
   }
 
   clearTimeout(__WEBPACK_IMPORTED_MODULE_0__countdown_clock_js__["a" /* clearTime */]);
-  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["b" /* stopSpin */]);
+  clearTimeout(__WEBPACK_IMPORTED_MODULE_1__spin_motion_js__["d" /* stopSpin */]);
   let lastGame = newGame
   newGame = false;
 
@@ -270,13 +274,14 @@ class Game {
   }
 
   startSpin() {
-    let item = document.getElementById("game");
-    item.style.transform = `rotate(0deg)`;
-    Object(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, item);
+    this.game.style.transform = `rotate(0deg)`;
+    Object(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["a" /* keepSpinning */])([-2, -1, 1, 2], 0, this.game);
   }
 
   nextLevel() {
-    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* stopSpin */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["d" /* stopSpin */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["c" /* rotator */]);
+    clearTimeout(__WEBPACK_IMPORTED_MODULE_3__spin_motion_js__["b" /* rotatie */]);
     this.newPieces();
     this.startSpin();
     this.clockReset();
@@ -367,7 +372,7 @@ document.addEventListener("keypress", spaceBar, {once: true});
         return;
       }
       clearTimeout(__WEBPACK_IMPORTED_MODULE_1__countdown_clock_js__["a" /* clearTime */]);
-      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["b" /* stopSpin */]);
+      clearTimeout(__WEBPACK_IMPORTED_MODULE_0__spin_motion_js__["d" /* stopSpin */]);
       $("#timer").css({"color": "white"});
       document.getElementById('timer').innerHTML = "Ready!";
 
